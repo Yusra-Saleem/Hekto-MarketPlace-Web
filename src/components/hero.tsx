@@ -8,10 +8,9 @@ const Hero = () => {
 
   // Array of images (or content) for the carousel
   const slides = [
-    "https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp",
-    "https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp",
-    "https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp",
-    "https://placeimg.com/800/300/people"
+    "/images/promotional.png",
+    "/images/promotional.png",
+    "/images/promotional.png"
   ];
 
   // Handle the auto-scrolling effect

@@ -32,12 +32,10 @@ function Header() {
   {/* Sublinks */}
   <ul className="hidden group-hover:block absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2 border border-gray-200 z-10">
     <li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-      Woman&apos;s Fashion
-      <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
+     shop-list
     </li>
     <li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-      Men&apos;s Fashion
-      <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
+      
     </li>
     <li className="p-2 hover:bg-gray-100 cursor-pointer">Electronics</li>
     <li className="p-2 hover:bg-gray-100 cursor-pointer">Home & Lifestyle</li>

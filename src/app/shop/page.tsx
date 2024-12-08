@@ -21,7 +21,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/gray.png",
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 4,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/soft.png",
   },
   {
     id: "3",
@@ -37,7 +37,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 3,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/gray.png",
   },
   {
     id: "4",
@@ -45,7 +45,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/sgop-bag.png",
   },
   {
     id: "5",
@@ -53,7 +53,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 4,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/smart.png",
   },
   {
     id: "6",
@@ -61,7 +61,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/watch-1.png",
   },
   {
     id: "7",
@@ -69,7 +69,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 3,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/red-h-p.png",
   },
   {
     id: "8",
@@ -77,7 +77,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 4,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/pink-sofa.png",
   },
   {
     id: "9",
@@ -85,7 +85,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/bracelate.png",
   },
   {
     id: "10",
@@ -93,7 +93,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 4,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/cam.png",
   },
   {
     id: "11",
@@ -101,7 +101,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 3,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/image/shop-h-p.png",
   },
   {
     id: "12",
@@ -109,7 +109,7 @@ const products = [
     price: 26.00,
     originalPrice: 42.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/sgop-bag.png",
   },
 ]
 
