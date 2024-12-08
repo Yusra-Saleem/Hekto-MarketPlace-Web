@@ -1,17 +1,29 @@
 import type { Metadata } from "next";
+import { Josefin_Sans, Lato } from 'next/font/google';
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from '@/components/header'
+import TopHeader from '@/components/topHeader'
+import Footer from '@/components/footer'
+import '@fontsource/josefin-sans/400.css';
+import '@fontsource/josefin-sans/700.css';
+import '@fontsource/lato/400.css';
+import '@fontsource/lato/700.css';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const josefinSans = Josefin_Sans({
+  subsets: ['latin'],
+  weight: ['400', '700'], // Add the weights you need
+  variable: '--font-josefin-sans', // Define a custom CSS variable
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'], // Add the weights you need
+  variable: '--font-lato', // Define a custom CSS variable
 });
+
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,9 +38,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${josefinSans.variable} ${lato.variable}`}
       >
+           <TopHeader/>
+        <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
