@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Josefin_Sans, Lato } from 'next/font/google';
-import localFont from "next/font/local";
 import "./globals.css";
 import Header from '@/components/header'
 import TopHeader from '@/components/topHeader'
