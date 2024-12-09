@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Heart, ShoppingCart, Star, Search, Grid, List } from "lucide-react";
+import { Heart, ShoppingCart,  Search, Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
