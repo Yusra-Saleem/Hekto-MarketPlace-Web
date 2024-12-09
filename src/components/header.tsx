@@ -40,13 +40,19 @@ function Header() {
      <Link href="/account" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
      My Account
      </li></Link>
+     <Link href="/cart" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     CartPage
+     </li></Link>
+     <Link href="/checkout" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     Check Out Page
+     </li></Link>
     
     
   </ul>
 </li>
 
                   <li className="p-4 hover:underline underline-offset-2">
-                    <Link href="/shop">Pages</Link>
+                    <Link href="/product-page">Pages</Link>
                   </li>
                   <li className="p-4 hover:underline underline-offset-2">
                     <Link href="/our-products">Product</Link>
@@ -143,7 +149,7 @@ function Header() {
       </li>
       <li>
         <a
-          href="/shop"
+          href="/product-page"
           className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]"
         >
           Pages
