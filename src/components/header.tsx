@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -31,24 +30,22 @@ function Header() {
 </Link>
   {/* Sublinks */}
   <ul className="hidden group-hover:block absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2 border border-gray-200 z-10">
-    <li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-     shop-list
-    </li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-      
-    </li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Electronics</li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Home & Lifestyle</li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Medicine</li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Sports & Outdoor</li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Baby&apos;s & Toys</li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Groceries & Pets</li>
-    <li className="p-2 hover:bg-gray-100 cursor-pointer">Health & Beauty</li>
+  <Link href="/faq" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     FAQ
+    </li></Link>
+    <Link href="/about" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     About Us
+     </li></Link>
+     <Link href="/account" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     My Account
+     </li></Link>
+    
+    
   </ul>
 </li>
 
                   <li className="p-4 hover:underline underline-offset-2">
-                    <Link href="/pages">Pages</Link>
+                    <Link href="/shop">Pages</Link>
                   </li>
                   <li className="p-4 hover:underline underline-offset-2">
                     <Link href="/our-products">Product</Link>
@@ -104,34 +101,47 @@ function Header() {
             />
           </div>
           <ul className="space-y-6 mt-8">
-            <li>
-              <a href="/" className="text-lg font-medium text-gray-700 hover:text-gray-900">
-                Home
-              </a>
+            <li className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] ">
+               Home
+              
+               {/* Sublinks */}
+  <ul className="hidden group-hover:block absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2 border border-gray-200 z-10">
+  <Link href="/faq" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     FAQ
+    </li></Link>
+    <Link href="/about" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     About Us
+     </li></Link>
+     <Link href="account" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
+     My Account
+     </li></Link>
+    
+    
+  </ul>
             </li>
             <li>
-              <a href="/Pages" className="text-lg font-medium text-gray-700 hover:text-gray-900">
+              <a href="/shop" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
                 Pages
               </a>
             </li>
             <li>
-              <a href="/our-products" className="text-lg font-medium text-gray-700 hover:text-gray-900">
+              <a href="/our-products" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
                 Product
               </a>
 
             </li>
             <li>
-              <a href="/blog" className="text-lg font-medium text-gray-700 hover:text-gray-900">
+              <a href="/blog" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
                 Blog
               </a>
             </li>
             <li>
-              <a href="/shop" className="text-lg font-medium text-gray-700 hover:text-gray-900">
+              <a href="/shop" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
                 Shop
               </a>
             </li>
             <li>
-              <a href="/contact" className="text-lg font-medium text-gray-700 hover:text-gray-900">
+              <a href="/contact" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
                 Contact
               </a>
               

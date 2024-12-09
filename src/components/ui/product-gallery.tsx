@@ -37,7 +37,7 @@ export function ProductGallery({ images }: ProductGalleryProps) {
           className="h-[500px] w-full object-contain p-4"
         />
       </div>
-      <div className="grid md:hidden grid-cols-4 gap-4">
+      <div className="grid md:hidden grid-cols-4 mt-4 md:mt-0 gap-4">
         {images.map((image, index) => (
           <button
             key={index}

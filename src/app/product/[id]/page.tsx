@@ -18,10 +18,10 @@ const product = {
   rating: 5,
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
   images: [
-    "/placeholder.svg?height=600&width=600",
-    "/placeholder.svg?height=600&width=600",
-    "/placeholder.svg?height=600&width=600",
-    "/placeholder.svg?height=600&width=600",
+    "/images/chair-3.png",
+    "/images/chair-4.png",
+    "/images/chair-1.png",
+    "/images/chair-2.png",
   ],
   colors: ["Black", "Brown", "White"],
   additionalInfo: [
@@ -39,28 +39,28 @@ const relatedProducts = [
     price: 43.00,
     originalPrice: 50.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/chair1.png",
   },
   {
     id: "3",
     title: "Women's Fashion",
     price: 67.00,
     rating: 4,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/chair4.png",
   },
   {
     id: "4",
     title: "Wolx Dummy Fashion",
     price: 67.00,
     rating: 5,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/chair5.png",
   },
   {
     id: "5",
     title: "Top Wall Digital Clock",
     price: 51.00,
     rating: 4,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/chair2.png",
   },
 ]
 
@@ -130,7 +130,7 @@ export default function ProductPage() {
               <div className="flex items-center">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="h-10 w-10 border border-r-0 hover:bg-gray-50"
+                  className="h-10 w-8 border border-r-0 hover:bg-gray-50"
                 >
                   -
                 </button>
@@ -140,16 +140,16 @@ export default function ProductPage() {
                   onChange={(e) =>
                     setQuantity(Math.max(1, parseInt(e.target.value) || 1))
                   }
-                  className="h-10 w-16 border text-center"
+                  className="h-10 w-12 border text-center"
                 />
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="h-10 w-10 border border-l-0 hover:bg-gray-50"
+                  className="h-10 w-8 border border-l-0 hover:bg-gray-50"
                 >
                   +
                 </button>
               </div>
-              <Button className="bg-[#FB2E86] hover:bg-[#FB2E86]/90">
+              <Button className="bg-[#FB2E86] text-white rounded-xl hover:bg-[#FB2E86]/90">
                 Add To Cart
               </Button>
               <Button

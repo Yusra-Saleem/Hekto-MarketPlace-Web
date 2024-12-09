@@ -66,14 +66,14 @@ export function ProductCard({
           </Button>
         </div>
       </div>
-      <div className="p-4 text-center">
+      <div className="p-4 flex justify-between items-center text-center">
         <Link
           href={`/products/${id}`}
-          className="text-sm font-bold text-[#FB2E86] hover:underline"
+          className="text-sm font-bold text-[#FB2E86]  hover:underline"
         >
           {title}
         </Link>
-        <div className="mt-2">
+        <div className="">
           <span className="font-bold text-[#151875]">${price.toFixed(2)}</span>
         </div>
       </div>

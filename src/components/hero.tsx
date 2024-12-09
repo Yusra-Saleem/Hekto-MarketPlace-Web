@@ -65,7 +65,7 @@ const Hero = () => {
         className="flex transition-transform duration-500 ease-in-out"
         style={{
           width: "100%",
-          overflowX: "auto", // Enable horizontal scrolling
+           overflowX: "hidden",// Enable horizontal scrolling
         }}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
@@ -73,24 +73,24 @@ const Hero = () => {
         onMouseLeave={onMouseLeave}
       >
         {slides.map((slide, index) => (
-          <div key={index} className="flex-shrink-0 w-full">
-            <img src={slide} alt={`Slide ${index}`} className="w-full" />
+          <div key={index} className="flex-shrink-0 w-full h-full">
+            <img src={slide} alt={`Slide ${index}`} className="w-full h-full" />
           </div>
         ))}
       </div>
 
       {/* Pagination buttons */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+      <span className="absolute bottom-4 md:bottom-8 left-1/2 h-3 items-center transform -translate-x-1/2 p-0 flex gap-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`btn btn-xs ${currentIndex === index ? "bg-blue-500 text-white" : ""}`}
+            className={`btn btn-xs ${currentIndex === index ? " text-pink-500  py-0  border rounded-full border-pink-500 h-[11px] justify-center text-center pb-[3.8px]  flex items-center" : " text-pink-500"}`}
           >
             ●
           </button>
         ))}
-      </div>
+      </span>
     </div>
   );
 };

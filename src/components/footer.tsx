@@ -5,24 +5,24 @@ function Footer() {
     <div>
       
           {/* Footer */}
-          <footer className="bg-gray-400 pt-16 pb-8">
+          <footer className=" bg-[#EEEFFB] pt-16 pb-8">
             <div className="container lg:w-[1177px] mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div className="space-y-4  pr-8 lg:w-[300px]">
+                <div className="space-y-4  pr-8 lg:w-[400px]">
                   <h2 className="text-2xl font-bold">Hekto</h2>
                   <div className="flex">
                     <input
                       type="email"
                       placeholder="Enter Email Address"
-                      className="p-2 border rounded-l"
+                      className="p-2 border bg-purple-100 rounded-l"
                     />
-                    <button className="rounded-l-none bg-[#FB2E86]">Sign Up</button>
+                    <button className="rounded-l-none  px-3 text-white bg-[#FB2E86]">Sign Up</button>
                   </div>
                   <p className="text-sm text-gray-600">Contact Info</p>
-                  <p className="text-sm text-gray-600">17 Princess Road, London, Greater London NW1 8JR, UK</p>
+                  <p className="text-sm w-[300px] text-gray-600">17 Princess Road, London, Greater London NW1 8JR, UK</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold mb-4">Categories</h3>
+                <div className="md:pl-8">
+                  <h3 className="font-semibold  mb-4">Categories</h3>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>Laptops & Computers</li>
                     <li>Cameras & Photography</li>
