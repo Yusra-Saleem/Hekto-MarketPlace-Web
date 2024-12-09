@@ -9,6 +9,7 @@ import { IoIosArrowDown } from "react-icons/io";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSublinks, setShowSublinks] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -88,67 +89,102 @@ function Header() {
         </div>
       </div>
       {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="fixed right-0 top-[30px] w-[70vw] h-full bg-white z-50 px-4 py-2 duration-500 overflow-y-auto">
-          <div className="flex justify-end mt-4 items-center">
-            <IoClose className="h-6 w-6 cursor-pointer" onClick={toggleMenu} />
-          </div>
-          <div className="mt-5">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full p-3 border border-gray-300 rounded-md"
-            />
-          </div>
-          <ul className="space-y-6 mt-8">
-            <li className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] ">
-               Home
-              
-               {/* Sublinks */}
-  <ul className="hidden group-hover:block absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2 border border-gray-200 z-10">
-  <Link href="/faq" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-     FAQ
-    </li></Link>
-    <Link href="/about" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-     About Us
-     </li></Link>
-     <Link href="account" className="hover:text-[#FB2E86] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"><li className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center">
-     My Account
-     </li></Link>
-    
-    
-  </ul>
-            </li>
-            <li>
-              <a href="/shop" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
-                Pages
-              </a>
-            </li>
-            <li>
-              <a href="/our-products" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
-                Product
-              </a>
+{isOpen && (
+  <div className="fixed right-0 top-[30px] w-[70vw] h-full bg-white z-50 px-4 py-2 duration-500 overflow-y-auto">
+    <div className="flex justify-end mt-4 items-center">
+      <IoClose className="h-6 w-6 cursor-pointer" onClick={toggleMenu} />
+    </div>
+    <div className="mt-5">
+      <input
+        type="text"
+        placeholder="Search"
+        className="w-full p-3 border border-gray-300 rounded-md"
+      />
+    </div>
+    <ul className="space-y-6 mt-8">
+      <li className="relative">
+        <div
+          className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86] cursor-pointer"
+          onClick={() => setShowSublinks(!showSublinks)}
+        >
+          Home
+          <span className={`ml-auto transform ${showSublinks ? 'rotate-180' : ''}`}>▼</span>
+        </div>
 
+        {/* Sublinks */}
+        {showSublinks && (
+          <ul className="mt-2 space-y-2 pl-4">
+            <li>
+              <Link
+                href="/faq"
+                className="hover:text-[rgb(251,46,134)] block focus:text-[#FB2E86] active:text-[#FB2E86]"
+              >
+                FAQ
+              </Link>
             </li>
             <li>
-              <a href="/blog" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
-                Blog
-              </a>
+              <Link
+                href="/about"
+                className="hover:text-[rgb(251,46,134)] block focus:text-[#FB2E86] active:text-[#FB2E86]"
+              >
+                About Us
+              </Link>
             </li>
             <li>
-              <a href="/shop" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
-                Shop
-              </a>
-            </li>
-            <li>
-              <a href="/contact" className="hover:text-[rgb(251,46,134)] flex items-center  focus:text-[#FB2E86] active:text-[#FB2E86]">
-                Contact
-              </a>
-              
+              <Link
+                href="/account"
+                className="hover:text-[rgb(251,46,134)] block focus:text-[#FB2E86] active:text-[#FB2E86]"
+              >
+                My Account
+              </Link>
             </li>
           </ul>
-        </div>
-      )}
+        )}
+      </li>
+      <li>
+        <a
+          href="/shop"
+          className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]"
+        >
+          Pages
+        </a>
+      </li>
+      <li>
+        <a
+          href="/our-products"
+          className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]"
+        >
+          Product
+        </a>
+      </li>
+      <li>
+        <a
+          href="/blog"
+          className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]"
+        >
+          Blog
+        </a>
+      </li>
+      <li>
+        <a
+          href="/shop"
+          className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]"
+        >
+          Shop
+        </a>
+      </li>
+      <li>
+        <a
+          href="/contact"
+          className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]"
+        >
+          Contact
+        </a>
+      </li>
+    </ul>
+  </div>
+)}
+
     </main>
   );
 }

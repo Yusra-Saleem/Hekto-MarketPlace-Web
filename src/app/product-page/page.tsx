@@ -4,12 +4,8 @@ import * as React from "react"
 import { Heart, ShoppingCart, Star, Search , Grid, List } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { Slider } from "@/components/ui/slider"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
+import {  Select , SelectContent , SelectItem , SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface Product {
   id: string
@@ -123,136 +119,7 @@ export default function ShopPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Shop Left Sidebar</h1>
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar */}
-        <div className="w-full md:w-64 space-y-6">
-          <div>
-            <h3 className="font-semibold mb-4">Product Brand</h3>
-            <div className="space-y-2">
-              {["Coaster Furniture", "Fusion Dot High Fashion", "Unique Furnitture Resto", "Dream Furnitture Flipping", "Young Repurposed", "Green DIY furniture"].map((brand) => (
-                <div key={brand} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={brand} 
-                    checked={selectedBrands.includes(brand)}
-                    onCheckedChange={(checked) => {
-                      if (checked) {
-                        setSelectedBrands([...selectedBrands, brand])
-                      } else {
-                        setSelectedBrands(selectedBrands.filter(b => b !== brand))
-                      }
-                    }}
-                  />
-                  <Label htmlFor={brand}>{brand}</Label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Separator />
-
-          <div>
-            <h3 className="font-semibold mb-4">Discount Offer</h3>
-            <div className="space-y-2">
-              {["20% Cashback", "5% Cashback Offer", "25% Discount Offer"].map((discount) => (
-                <div key={discount} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={discount}
-                    checked={selectedDiscounts.includes(discount)}
-                    onCheckedChange={(checked) => {
-                      if (checked) {
-                        setSelectedDiscounts([...selectedDiscounts, discount])
-                      } else {
-                        setSelectedDiscounts(selectedDiscounts.filter(d => d !== discount))
-                      }
-                    }}
-                  />
-                  <Label htmlFor={discount}>{discount}</Label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Separator />
-
-          <div>
-            <h3 className="font-semibold mb-4">Rating Item</h3>
-            <RadioGroup value={selectedRating || ""} onValueChange={setSelectedRating}>
-              {[5, 4, 3].map((rating) => (
-                <div key={rating} className="flex items-center space-x-2">
-                  <RadioGroupItem value={rating.toString()} id={`r${rating}`} />
-                  <Label htmlFor={`r${rating}`} className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />
-                    ))}
-                    <span className="ml-2">({rating === 5 ? "2345" : rating === 4 ? "1234" : "543"})</span>
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-
-          <Separator />
-
-          <div>
-            <h3 className="font-semibold mb-4">Categories</h3>
-            <div className="space-y-2">
-              {["Prestashop", "Magento", "Bigcommerce", "osCommerce", "3dcart", "Bags", "Accessories", "Jewellery", "Watches"].map((category) => (
-                <div key={category} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={category}
-                    checked={selectedCategories.includes(category)}
-                    onCheckedChange={(checked) => {
-                      if (checked) {
-                        setSelectedCategories([...selectedCategories, category])
-                      } else {
-                        setSelectedCategories(selectedCategories.filter(c => c !== category))
-                      }
-                    }}
-                  />
-                  <Label htmlFor={category}>{category}</Label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Separator />
-
-          <div>
-            <h3 className="font-semibold mb-4">Price Filter</h3>
-            <Slider
-              value={priceRange}
-              onValueChange={setPriceRange}
-              max={1000}
-              step={10}
-              className="w-full "
-            />
-            <div className="mt-2 text-sm text-slate-800">
-              ${priceRange[0]} - ${priceRange[1]}
-            </div>
-          </div>
-
-          <Separator />
-
-          <div>
-            <h3 className="font-semibold mb-4">Filter By Color</h3>
-            <div className="flex flex-wrap gap-2">
-              {["#FF8CB8", "#FFC93E", "#7C4AFF", "#41D37E", "#FB7DA9", "#6DCEF5"].map((color) => (
-                <button
-                  key={color}
-                  className={`w-6 h-6 rounded-full cursor-pointer border-2 ${selectedColors.includes(color) ? 'border-black' : 'border-transparent'}`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => {
-                    if (selectedColors.includes(color)) {
-                      setSelectedColors(selectedColors.filter(c => c !== color))
-                    } else {
-                      setSelectedColors([...selectedColors, color])
-                    }
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
+       
         {/* Main Content */}
         <div className="flex-1">
           <div className="flex justify-between items-center mb-6">
