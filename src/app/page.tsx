@@ -64,39 +64,40 @@ export default function HomePage() {
         <TrendingProducts />
         <TopCategories />
         <NewsletterSection />
-        {/* Latest Blog */}
-      <section className="py-16">
-        <div className="container w-[1177px] mx-auto">
-          <SectionHeader title="Latest Blog" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((blog) => (
-              <div key={blog} className="group cursor-pointer">
-                <img
-                  src={`/images/blog-p1.png`}
-                  alt={`Blog ${blog}`}
-                  className="mb-4 w-full rounded-lg"
-                />
-                <div className="space-y-2">
-                  <div className="flex gap-4 text-sm text-gray-500">
-                    <span>By Admin</span>
-                    <span>December 12, 2023</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-[#151875] group-hover:text-[#FB2E86]">
-                    Top essential Trends in 2023
-                  </h3>
-                  <p className="text-gray-600">
-                    More off this less hello samlande lied much over tightly circa
-                    horse taped mightly
-                  </p>
-                  <Button variant="link" className="p-0 text-[#FB2E86]">
-                    Read More
-                  </Button>
-                </div>
-              </div>
-            ))}
+       {/* Latest Blog */}
+<section className="py-16">
+  <div className="container px-4 mx-auto max-w-[1177px]">
+    <SectionHeader title="Latest Blog" />
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {[1, 2, 3].map((blog) => (
+        <div key={blog} className="group cursor-pointer">
+          <img
+            src={`/images/blog-p1.png`}
+            alt={`Blog ${blog}`}
+            className="mb-4 w-full rounded-lg"
+          />
+          <div className="space-y-2">
+            <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+              <span>By Admin</span>
+              <span>December 12, 2023</span>
+            </div>
+            <h3 className="text-lg font-bold text-[#151875] group-hover:text-[#FB2E86]">
+              Top essential Trends in 2023
+            </h3>
+            <p className="text-gray-600">
+              More off this less hello samlande lied much over tightly circa
+              horse taped mightly
+            </p>
+            <Button variant="link" className="p-0 text-[#FB2E86]">
+              Read More
+            </Button>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
       </main>
     </div>
   )
