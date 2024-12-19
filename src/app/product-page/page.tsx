@@ -94,7 +94,6 @@ const products: Product[] = [
 
 export default function ShopPage() {
   const [view, setView] = React.useState<"grid" | "list">("list")
-  const [selectedColors, setSelectedColors] = React.useState<string[]>([])
   const [sortBy, setSortBy] = React.useState("best-match")
   const [perPage, setPerPage] = React.useState("15")
 
