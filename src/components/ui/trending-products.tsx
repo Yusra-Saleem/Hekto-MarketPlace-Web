@@ -71,7 +71,6 @@ export function TrendingProducts() {
           <div className="col-span-3 relative">
             <PromotionalBanner
               title="23% off in all products"
-              image="/images/trending-2.png"
               bgColor="#FFF6FB"
               actionLabel="Shop Now"
 
@@ -85,7 +84,6 @@ export function TrendingProducts() {
           <div className="col-span-3 relative">
             <PromotionalBanner
               title="23% off in all products"
-              image="/images/trending-2.png"
               bgColor="#F6F7FB"
               actionLabel="View Collection"
 
