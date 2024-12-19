@@ -35,8 +35,8 @@ const categories = [
 export function TopCategories() {
   return (
     <section className="py-24">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-16 text-center text-4xl font-bold text-[#1A0B5B]">
+      <div className="container md:w-[1177px] mx-auto px-4">
+        <h2 className="mb-16 text-center text-4xl  font-bold text-[#1A0B5B]">
           Top Categories
         </h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

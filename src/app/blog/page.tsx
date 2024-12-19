@@ -9,8 +9,8 @@ export default function BlogPage() {
       {/* Page Header */}
       <div className=" h-[286px] bg-[#F6F5FF] flex items-center py-16">
         <div className="container md:w-[1170px] mx-auto px-4">
-          <h1 className="text-3xl text-center md:text-left font-bold mb-4">Blog Page</h1>
-          <div className="flex justify-center md:justify-start items-center gap-2 text-sm">
+          <h1 className="text-3xl text-center text-[#151875] md:text-left font-bold mb-4">Blog Page</h1>
+          <div className="flex justify-center text-[#151875] md:justify-start items-center gap-2 text-sm">
             <Link href="/">Home</Link>
             <span>•</span>
             <Link href="/pages">Pages</Link>
@@ -33,8 +33,8 @@ export default function BlogPage() {
                   className="w-full rounded-lg"
                 />
                 <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>Surf Auxion</span>
-                  <span>Aug 09 2020</span>
+                  <span className="bg-pink-100 text-pink-500 px-4 py-1 ">Surf Auxion</span>
+                  <span className="bg-pink-100 text-pink-500 px-4 py-1 ">Aug 09 2020</span>
                 </div>
                 <h2 className="text-2xl font-bold text-[#151875]">
                   Mauris at orci non vulputate diam tincidunt nec.
@@ -44,7 +44,7 @@ export default function BlogPage() {
                 </p>
                 <Link
                   href="/blog/post-1"
-                  className="inline-block text-[#FB2E86] hover:underline"
+                  className="inline-block text-[#151875] hover:text-[#FB2E86] font-semibold hover:underline"
                 >
                   Read More
                 </Link>
@@ -57,8 +57,8 @@ export default function BlogPage() {
                   className="w-full rounded-lg"
                 />
                 <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>Surf Auxion</span>
-                  <span>Aug 09 2020</span>
+                  <span className="bg-pink-100 text-pink-500 px-4 py-1 ">Surf Auxion</span>
+                  <span className="bg-pink-100 text-pink-500 px-4 py-1 ">Aug 09 2020</span>
                 </div>
                 <h2 className="text-2xl font-bold text-[#151875]">
                 Aenean vitae in aliquam ultrices lectus. Etiam.
@@ -68,7 +68,7 @@ export default function BlogPage() {
                 </p>
                 <Link
                   href="/blog/post-1"
-                  className="inline-block text-[#FB2E86] hover:underline"
+                  className="inline-block text-[#151875] hover:text-[#FB2E86] font-semibold hover:underline"
                 >
                   Read More
                 </Link>
@@ -81,8 +81,8 @@ export default function BlogPage() {
                   className="w-full rounded-lg"
                 />
                 <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>Surf Auxion</span>
-                  <span>Aug 09 2020</span>
+                  <span className="bg-pink-100 text-pink-500 px-4 py-1 ">Surf Auxion</span>
+                  <span className="bg-pink-100 text-pink-500 px-4 py-1 ">Aug 09 2020</span>
                 </div>
                 <h2 className="text-2xl font-bold text-[#151875]">
                 Sit nam congue feugiat nisl, mauris amet nisi. 
@@ -92,7 +92,7 @@ export default function BlogPage() {
                 </p>
                 <Link
                   href="/blog/post-1"
-                  className="inline-block text-[#FB2E86] hover:underline"
+                  className="inline-block text-[#151875] hover:text-[#FB2E86] font-semibold hover:underline"
                 >
                   Read More
                 </Link>

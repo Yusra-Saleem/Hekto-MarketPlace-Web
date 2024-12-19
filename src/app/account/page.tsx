@@ -16,8 +16,8 @@ export default function AccountPage() {
       {/* Page Header */}
       <div className="bg-[#F6F5FF] h-[289px] flex items-center justify-center md:justiify-start py-16">
         <div className="container   lg:w-[1177px] mx-auto px-4">
-          <h1 className="text-3xl font-bold mb-4">My Account</h1>
-          <div className="flex items-center gap-2 text-sm">
+          <h1 className="text-3xl text-center text-[#151875] md:text-left font-bold mb-4">My Account</h1>
+          <div className="flex justify-center text-[#151875] md:justify-start items-center gap-2 text-sm">
             <Link href="/">Home</Link>
             <span>•</span>
             <Link href="/pages">Pages</Link>

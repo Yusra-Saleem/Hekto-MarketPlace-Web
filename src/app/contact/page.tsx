@@ -17,9 +17,9 @@ export default function ContactPage() {
     <div>
       {/* Page Header */}
       <div className="h-[286px] bg-[#F6F5FF] flex items-center py-16">
-        <div className="container   md:w-[1170px] mx-auto px-4">
-          <h1 className="text-3xl text-center md:text-left font-bold mb-4">Contact Us</h1>
-          <div className="flex justify-center md:justify-start items-center gap-2 text-sm">
+        <div className="container   md:w-[1177px] mx-auto px-4">
+          <h1 className="text-3xl text-center text-[#151875] md:text-left font-bold mb-4">Contact Us</h1>
+          <div className="flex justify-center text-[#151875] md:justify-start items-center gap-2 text-sm">
             <Link href="/">Home</Link>
             <span>•</span>
             <Link href="/pages">Pages</Link>
@@ -30,7 +30,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Content */}
-      <div className="container md:w-[1170px] mx-auto px-4 py-16">
+      <div className="container md:w-[1177px] mx-auto px-4 py-16">
         <div className="grid gap-16 lg:grid-cols-2">
         
           <div>

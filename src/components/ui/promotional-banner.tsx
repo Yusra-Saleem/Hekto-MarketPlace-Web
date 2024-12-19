@@ -1,10 +1,8 @@
-import Link from "next/link"
 
 interface PromotionalBannerProps {
-  title: string
-  image: string
-  href: string
+  title?: string
   bgColor?: string
+  actionLabel?: string
   relatedProducts?: Array<{
     title: string
     price: number
@@ -14,29 +12,35 @@ interface PromotionalBannerProps {
 
 export function PromotionalBanner({
   title,
-  image,
-  href,
   bgColor = "#FFF6FB",
+  actionLabel,
   relatedProducts
 }: PromotionalBannerProps) {
   return (
     <div className="group relative overflow-hidden rounded-sm">
-      <Link href={href} className="block">
         <div 
-          className="flex h-48 items-center justify-between p-6"
+          className="flex min-h-[230px] items-start justify-between p-4"
           style={{ backgroundColor: bgColor }}
         >
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-[#151875]">{title}</h3>
+          <div className="space-y-4">
+            <h3 className="text-2xl font-semibold text-[#151875]">{title}</h3>
+            <span>
+
+              {actionLabel}
+              
+            </span>
+            
             {relatedProducts && (
-              <div className="space-y-2">
+              <div className="mt-4 ">
                 {relatedProducts.map((product, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="h-12 w-12 rounded-sm object-cover"
-                    />
+                  <div key={index} className="flex items-center gap-4">
+                    <div className="h-16 w-16 rounded-sm bg-white p-2">
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
                     <div>
                       <p className="text-sm text-[#151875]">{product.title}</p>
                       <p className="text-sm text-[#151875]">${product.price.toFixed(2)}</p>
@@ -46,13 +50,8 @@ export function PromotionalBanner({
               </div>
             )}
           </div>
-          <img
-            src={image}
-            alt={title}
-            className="h-32 w-32 object-contain transition-transform duration-300 group-hover:scale-110"
-          />
+        
         </div>
-      </Link>
     </div>
   )
 }

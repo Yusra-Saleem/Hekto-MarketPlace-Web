@@ -26,7 +26,8 @@ export function ProductCard({
   color,
 }: ProductCardProps) {
   return (
-    <Card className="group relative overflow-hidden rounded-none border-none">
+    <Card className="group relative  overflow-hidden rounded-none border-none">
+      <div className="flex justify-center">
       <div className="relative h-[280px] w-[270px] flex justify-center items-center overflow-hidden  hover:bg-[#EBF4F3] bg-[#F6F7FB]">
         {isNew && (
           <span className="absolute left-3 top-3 rounded bg-[#FB2E86] px-2 py-1 text-xs text-white">
@@ -61,6 +62,7 @@ export function ProductCard({
             </Link>
           </Button>
         </div>
+      </div>
       </div>
       <div className="py-4 group-hover:bg-[#E7E4F8] text-center">
         <Link

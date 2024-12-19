@@ -135,8 +135,8 @@ export default function ShopPage() {
       {/* Breadcrumb */}
       <div className="bg-[#F6F5FF] py-16">
         <div className="container lg:w-[1177px] mx-auto px-4">
-          <h1 className="text-3xl text-[#151875] font-bold mb-4">Shop Grid Default</h1>
-          <div className="flex items-center gap-2 text-[#151875] text-sm">
+          <h1 className="text-3xl text-center text-[#151875] md:text-left font-bold mb-4">Shop Grid Default</h1>
+          <div className="flex justify-center text-[#151875] md:justify-start items-center gap-2 text-sm">
             <Link href="/">Home</Link>
             <span>•</span>
             <Link href="/pages">Pages</Link>
@@ -228,7 +228,7 @@ export default function ShopPage() {
           className={
             view === "grid"
               ? "grid justify-center gap-6 sm:grid-cols-2 lg:grid-cols-4"
-              : "space-y-6 flex justify-center "
+              : "space-y-6 grid-cols-1"
           }
         >
           {products.map((product) => (

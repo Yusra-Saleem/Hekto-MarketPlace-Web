@@ -36,10 +36,29 @@ const trendingProducts = [
   },
 ]
 
+
+const executiveChairs = [
+  {
+    title: "Executive Seat chair",
+    price: 32.00,
+    image: "/images/trending-3.png"
+  },
+  {
+    title: "Executive Seat chair",
+    price: 32.00,
+    image: "/images/trending-3.png"
+  },
+  {
+    title: "Executive Seat chair",
+    price: 32.00,
+    image: "/images/trending-3.png"
+  }
+]
+
 export function TrendingProducts() {
   return (
     <section className="py-16">
-      <div className="container mx-auto px-4">
+      <div className="container md:w-[1177px] mx-auto px-4">
         <h2 className="mb-12 text-center text-3xl font-bold text-[#151875]">
           Trending Products
         </h2>
@@ -48,36 +67,41 @@ export function TrendingProducts() {
             <TrendingProductCard key={product.id} {...product} />
           ))}
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          <PromotionalBanner
-            title="23% off in all products"
-            image="/images/chair-2.png"
-            href="/sale"
-            bgColor="#FFF6FB"
-          />
-          <PromotionalBanner
-            title="23% off in all products"
-            image="/images/chair-4.png"
-            href="/sale"
-            bgColor="#F6F7FB"
-            relatedProducts={[
-              {
-                title: "Executive Seat chair",
-                price: 32.00,
-                image: "/images/chair2.png"
-              },
-              {
-                title: "Executive Seat chair",
-                price: 32.00,
-                image: "/images/chair4.png"
-              },
-              {
-                title: "Executive Seat chair",
-                price: 32.00,
-                image: "/images/chair-3.png"
-              }
-            ]}
-          />
+        <div className="mt-12 grid gap-8 sm:grid-cols-3 md:grid-cols-8">
+          <div className="col-span-3 relative">
+            <PromotionalBanner
+              title="23% off in all products"
+              image="/images/trending-2.png"
+              bgColor="#FFF6FB"
+              actionLabel="Shop Now"
+
+            />
+               <img
+              src="/images/trending-2.png"
+              alt="/images/trending-2.png"
+              className=" right-[0px] absolute top-[25px] "
+            />
+          </div>
+          <div className="col-span-3 relative">
+            <PromotionalBanner
+              title="23% off in all products"
+              image="/images/trending-2.png"
+              bgColor="#F6F7FB"
+              actionLabel="View Collection"
+
+            />
+            <img
+              src="/images/trending-1.png"
+              alt="/images/trending-2.png"
+              className=" right-[0px] absolute top-[60px] "
+            />
+          </div>
+          <div className="col-span-2">
+            <PromotionalBanner
+
+              relatedProducts={executiveChairs}
+            />
+          </div>
         </div>
       </div>
     </section>

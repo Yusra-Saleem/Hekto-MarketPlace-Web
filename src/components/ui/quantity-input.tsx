@@ -18,11 +18,11 @@ export function QuantityInput({
   max = 99,
 }: QuantityInputProps) {
   return (
-    <div className="flex items-center">
+    <div className="flex mx-3 items-center">
       <Button
         variant="outline"
         size="icon"
-        className="h-8 w-8 rounded-r-none"
+        className="h-5 w-5 rounded-r-none"
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
       >
@@ -37,12 +37,12 @@ export function QuantityInput({
             onChange(Math.min(max, Math.max(min, newValue)))
           }
         }}
-        className="h-8 w-12 border-x-0 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="h-6 w-6 border-x-0 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
       <Button
         variant="outline"
         size="icon"
-        className="h-8 w-8 rounded-l-none"
+        className="h-5 w-5 rounded-l-none"
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
       >
