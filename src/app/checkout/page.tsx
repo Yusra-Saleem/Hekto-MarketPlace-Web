@@ -152,34 +152,22 @@ export default function CheckoutPage() {
     process.env.NEXT_PUBLIC_SHIPENGINE_SECOND_CARRIER_ID
   );
 
-  const handleCheckout = async () => {
-    async () => {
-      setIsLoading(true);
-      try {
-        // Perform checkout logic here
-      } catch (error) {
-        console.error('Checkout error:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
+
+  const handleCheckout = async () => {
     if (!selectedRate) {
       toast.error("Please select a shipping rate.");
       return;
     }
 
-    const labelPrice = 5.0; // Example label price (replace with actual value)
-    const shippingRate = selectedRate.shipping_amount.amount; // Shipping cost from selected rate
-    const tax = 3.5; // Example tax (replace with actual value)
+    const labelPrice = 5.0;
+    const shippingRate = selectedRate.shipping_amount.amount;
+    const tax = 3.5;
     const totalAmount = subtotal + shippingRate + tax + labelPrice;
 
     try {
-      // Prepare order data
       const orderData = {
-        _type: "order",
         cartItems: cart.map((item) => ({
-          _type: "cartItem",
           id: item.id,
           name: item.name,
           price: item.price,
@@ -188,38 +176,21 @@ export default function CheckoutPage() {
         subtotal,
         total: totalAmount,
         shippingRate: {
-          rateId: selectedRate.rate_id, // Use the selected rate's ID
-          serviceType: selectedRate.service_type, // Use the selected rate's service type
-          cost: selectedRate.shipping_amount.amount, // Use the selected rate's cost
-          estimatedDelivery: selectedRate.estimated_delivery_date, // Use the selected rate's estimated delivery date
-        },
-        shippingLabel: {
-          labelId: "LABEL12345", // Replace with actual label ID
-          trackingNumber: "TRACK12345", // Replace with actual tracking number
-          labelUrl: "https://example.com/label/LABEL12345", // Replace with actual label URL
-          labelPrice,
-          tax,
-          service_type: selectedRate.service_type,
-          info_date: new Date().toISOString(),
-          shop_fit_owner: "Your Store",
-          translate: false,
-          validate_to_stress: "valid",
+          rateId: selectedRate.rate_id,
+          serviceType: selectedRate.service_type,
+          cost: selectedRate.shipping_amount.amount,
+          estimatedDelivery: selectedRate.estimated_delivery_date,
         },
         trackingStatus: {
           status: "Processing",
-          lastUpdated: new Date().toISOString(),
-          location: "Warehouse",
           estimatedDelivery: selectedRate.estimated_delivery_date,
         },
         paymentDetails: {
-          paymentId: "example_payment_id", // Replace with actual payment ID
-          paymentStatus: "Paid",
-          paymentMethod: "Credit Card",
+          paymentStatus: "Pending",
           amountPaid: totalAmount,
         },
       };
 
-      // Save order to Sanity
       const saveOrderResponse = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -227,28 +198,15 @@ export default function CheckoutPage() {
       });
 
       if (!saveOrderResponse.ok) {
-        throw new Error("Failed to save order to Sanity");
+        throw new Error("Failed to save order.");
       }
 
       const { orderId } = await saveOrderResponse.json();
 
-      // Create Stripe session
       const stripeResponse = await fetch("/api/checkout-route", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cartItems: cart.map((item) => ({
-            id: item.id,
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-          })),
-          orderId,
-          labelPrice,
-          shippingRate,
-          tax,
-          totalAmount,
-        }),
+        body: JSON.stringify({ cartItems: orderData.cartItems, orderId, totalAmount }),
       });
 
       if (!stripeResponse.ok) {
@@ -294,14 +252,14 @@ export default function CheckoutPage() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleCheckout)}
-                className="space-y-8"
+                className="space-y-8 mb-24"
               >
                 {/* Form Fields */}
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem className="border-b-[3px] border-gray-300">
+                    <FormItem className=" border-b-[3px] border-gray-300">
                       <FormControl>
                         <Input
                           placeholder="Email"
@@ -334,7 +292,7 @@ export default function CheckoutPage() {
                   <h2 className="mb-8 text-xl font-bold text-[#101750] sm:text-lg">
                     Shipping Address
                   </h2>
-                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 space-y-8 mb-24">
                     <FormField
                       control={form.control}
                       name="firstName"
@@ -416,7 +374,7 @@ export default function CheckoutPage() {
                       </FormItem>
                     )}
                   />
-                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2  space-y-8 mb-24">
                     <FormField
                       control={form.control}
                       name="postalCode"
