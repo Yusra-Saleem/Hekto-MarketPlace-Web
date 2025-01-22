@@ -9,8 +9,27 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { client } from "@/sanity/lib/client"; 
 
-// Define a separate component for using `useSearchParams()`
-function OrderParamsHandler({ setOrderDetails, setTrackingDetails }: any) {
+// Define TypeScript types
+interface OrderDetails {
+  orderId: string;
+  shippingAddress: string;
+  deliveryStatus: string;
+}
+
+interface TrackingDetails {
+  trackingNumber: string;
+  estimatedDelivery: string;
+  status: string;
+  labelUrl: string;
+}
+
+interface OrderParamsHandlerProps {
+  setOrderDetails: React.Dispatch<React.SetStateAction<OrderDetails | null>>;
+  setTrackingDetails: React.Dispatch<React.SetStateAction<TrackingDetails>>;
+}
+
+// Separate component for `useSearchParams()`
+function OrderParamsHandler({ setOrderDetails, setTrackingDetails }: OrderParamsHandlerProps) {
   const searchParams = useSearchParams();
   const orderId = searchParams?.get("orderId") || "";
 
@@ -19,34 +38,16 @@ function OrderParamsHandler({ setOrderDetails, setTrackingDetails }: any) {
 
     const fetchOrderDetails = async () => {
       try {
-        const order = await client.fetch(
-          `*[_type == "order" && _id == $orderId][0]{
-            _id,
-            firstName,
-            lastName,
-            email,
-            address,
-            city,
-            country,
-            postalCode,
-            shippingRate {
-              rateId,
-              serviceType,
-              cost,
-              estimatedDelivery
-            },
-            shippingLabel {
-              labelId,
-              trackingNumber,
-              labelUrl
-            },
-            trackingStatus {
-              status,
-              lastUpdated,
-              location,
-              estimatedDelivery
-            }
-          }`,
+        const order = await client.fetch<{
+          _id: string;
+          address: string;
+          city: string;
+          country: string;
+          postalCode: string;
+          trackingStatus?: { status?: string; estimatedDelivery?: string };
+          shippingLabel?: { trackingNumber?: string; labelUrl?: string };
+        }>(
+          `*[_type == "order" && _id == $orderId][0]`,
           { orderId }
         );
 
@@ -80,18 +81,14 @@ function OrderParamsHandler({ setOrderDetails, setTrackingDetails }: any) {
 }
 
 export default function OrderCompletedPage() {
-  const [trackingDetails, setTrackingDetails] = useState({
+  const [trackingDetails, setTrackingDetails] = useState<TrackingDetails>({
     trackingNumber: "",
     estimatedDelivery: "",
     status: "",
     labelUrl: "",
   });
 
-  const [orderDetails, setOrderDetails] = useState<{
-    orderId: string;
-    shippingAddress: string;
-    deliveryStatus: string;
-  } | null>(null);
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
 
   return (
     <div className="min-h-screen flex flex-col">
