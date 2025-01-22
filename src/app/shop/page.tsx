@@ -5,6 +5,9 @@ import Link from "next/link"
 import { Grid} from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { ProductCard } from "@/components/ui/product-card"
+import { client } from "@/sanity/lib/client";
+
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -13,122 +16,72 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {BrandLogos} from '@/components/ui/brand-logos'
-// This would typically come from an API or database
-const products = [
-  {
-    id: "1",
-    title: "Vel elit euismod",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 5,
-    image: "/images/gray.png",
-    color: true
-  },
-  {
-    id: "2",
-    title: "Ultricies condimentum imperdiet",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 4,
-    image: "/images/soft.png",
-    color: true
-  },
-  {
-    id: "3",
-    title: "Vitae suspendisse sed",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 3,
-    image: "/images/gray.png",
-    color: true
-  },
-  {
-    id: "4",
-    title: "Sed ut perspiciatis",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 5,
-    image: "/images/sgop-bag.png",
-    color: true
-  },
-  {
-    id: "5",
-    title: "Fusce pellentesque at",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 4,
-    image: "/images/smart.png",
-    color: true
-  },
-  {
-    id: "6",
-    title: "Vestibulum magna laoreet",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 5,
-    image: "/images/watch-1.png",
-    color: true
-  },
-  {
-    id: "7",
-    title: "Sollicitudin amet orci",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 3,
-    image: "/images/red-h-p.png",
-    color: true
-  },
-  {
-    id: "8",
-    title: "Ultrices mauris sit",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 4,
-    image: "/images/pink-sofa.png",
-    color: true
-  },
-  {
-    id: "9",
-    title: "Pellentesque condimentum ac",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 5,
-    image: "/images/bracelate.png",
-    color: true
-  },
-  {
-    id: "10",
-    title: "Cras scelerisque velit",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 4,
-    image: "/images/cam.png",
-    color: true
-  },
-  {
-    id: "11",
-    title: "Lectus vulputate faucibus",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 3,
-    image: "/images/shop-h-p.png",
-    color: true
-  },
-  {
-    id: "12",
-    title: "Purus risus, ut",
-    price: 26.00,
-    originalPrice: 42.00,
-    rating: 5,
-    image: "/images/sgop-bag.png",
-    color: true
-  },
-]
 
+
+async function getProducts() {
+  try {
+    const products = await client.fetch(`
+      *[_type == "product"]{
+        _id,
+        name,
+        description,
+        price,
+        discountPercentage,
+        priceWithoutDiscount,
+        rating,
+        ratingCount,
+        tags,
+        sizes,
+        "imageUrl": image.asset->url
+      }[0...21]
+    `);
+    return products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+}
+
+interface Product{
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  priceWithoutDiscount: number;
+  rating: number;
+  ratingCount: number;
+  tags: string[];
+  sizes: string[];
+  imageUrl: string;
+}
 export default function ShopPage() {
-  const [view, setView] = React.useState<"grid" | "list">("grid")
-  const [sortBy, setSortBy] = React.useState("featured")
-  const [perPage, setPerPage] = React.useState("12")
+  const [view, setView] = useState<"grid" | "list">("grid");
+  const [sortBy, setSortBy] = useState("featured");
+  const [perPage, setPerPage] = useState("12");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    async function fetchData() {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    }
+    fetchData();
+  }, []);
+
+
+   // Pagination logic
+   const productsPerPage = parseInt(perPage, 10);
+   const indexOfLastProduct = currentPage * productsPerPage;
+   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+ 
+   const totalPages = Math.ceil(products.length / productsPerPage);
+ 
+   const handlePageChange = (page: number) => {
+     setCurrentPage(page);
+   };
 
   return (
     <div>
@@ -231,29 +184,27 @@ export default function ShopPage() {
               : "space-y-6 grid-cols-1"
           }
         >
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
+          {currentProducts.map((product) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
 
         {/* Pagination */}
         <div className="mt-8 flex justify-center gap-2">
-          <Button
-            
-            className="h-8 w-8 rounded-full p-0 text-[#FB2E86]"
-          >
-            1
-          </Button>
-          {[2, 3, 4].map((page) => (
+          {Array.from({ length: totalPages }, (_, index) => (
             <Button
-              key={page}
-              
-              className="h-8 w-8 rounded-full p-0"
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              variant={currentPage === index + 1 ? "default" : "outline"}
+              className={`h-8 w-8 rounded-full p-0 ${
+                currentPage === index + 1 ? "bg-[#FB2E86] text-white" : "text-[#FB2E86]"
+              }`}
             >
-              {page}
+              {index + 1}
             </Button>
           ))}
         </div>
+
 
         {/* Brand Logos */}
        <BrandLogos/>
@@ -261,4 +212,5 @@ export default function ShopPage() {
     </div>
   )
 }
+
 

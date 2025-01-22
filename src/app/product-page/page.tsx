@@ -1,101 +1,68 @@
 "use client"
 
 import * as React from "react"
+import { useEffect } from "react"
 import { Heart, ShoppingCart, Star, Search, Grid, List } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Link from "next/link"
+import { client } from "@/sanity/lib/client"
 
 interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  originalPrice: number
-  rating: number
-  image: string
-  colors: string[]
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  priceWithoutDiscount: number;
+  rating: number;
+  ratingCount: number;
+  tags: string[];
+  sizes: string[];
+  imageUrl: string;
+  colors: string[];
 }
 
-const products: Product[] = [
-  {
-    id: "1",
-    name: "Dictum morbi",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/shoplist-1.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "2",
-    name: "Sodales sit",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 4,
-    image: "/images/shoplist-2.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "3",
-    name: "Nibh varius",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/shoplist-3.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "4",
-    name: "Mauris quis",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/shoplist-4.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "5",
-    name: "Morbi sagittis",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 4,
-    image: "/images/shoplist-5.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "6",
-    name: "Ultrices venenatis",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 3,
-    image: "/images/shoplist-6.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "7",
-    name: "Scelerisque dignissim",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/shoplist-7.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
+
+async function getProducts() {
+  try {
+    const products = await client.fetch(`
+      *[_type == "product"]{
+        _id,
+        name,
+        description,
+        price,
+        discountPercentage,
+        priceWithoutDiscount,
+        rating,
+        ratingCount,
+        tags,
+        sizes,
+        "imageUrl": image.asset->url
+      }[15...21]
+    `);
+    return products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
   }
-]
+}
 
 export default function ShopPage() {
   const [view, setView] = React.useState<"grid" | "list">("list")
   const [sortBy, setSortBy] = React.useState("best-match")
   const [perPage, setPerPage] = React.useState("15")
+  const [products, setProducts] = React.useState<Product[]>([])
+  
+   useEffect(() => {
+    async function fetchData() {
+      const fetchedProducts = await getProducts()
+      setProducts(fetchedProducts)
+    }
+    fetchData()
+  }, [])
 
 
   
@@ -168,12 +135,12 @@ export default function ShopPage() {
 
         <div className={`grid gap-6 ${view === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>
           {products.map((product) => (
-            <Card key={product.id} className={`overflow-hidden w-full ${view === "list" ? "md:h-[230px]" : " md:h-[550px] "}`}>
+            <Card key={product._id} className={`overflow-hidden w-full ${view === "list" ? "md:h-[230px]" : " md:h-[550px] "}`}>
               <CardContent className={`p-0 ${view === "list" ? "flex" : " "}`}>
                 <div className={`${view === "grid" ? "flex justify-center items-center" : " md:w-2/6"}`}>
                   <div className={`${view === "list" ? " w-full h-full" : "w-[235px] h-auto"} bg-muted aspect-square overflow-hidden`}>
                     <img
-                      src={product.image}
+                      src={product.imageUrl}
                       alt={product.name}
                       className=" object-cover"
                     />
@@ -210,7 +177,7 @@ export default function ShopPage() {
                       ${product.price.toFixed(2)}
                     </span>
                     <span className="text-sm text-pink-500 font-heading line-through">
-                      ${product.originalPrice.toFixed(2)}
+                      ${product.priceWithoutDiscount.toFixed(2)}
                     </span>
                   </div>
                   <p className={`text-muted-foreground ${view === "list" ? "hidden md:block " : " "} `}>{product.description}</p>

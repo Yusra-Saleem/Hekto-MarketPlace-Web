@@ -1,38 +1,61 @@
+
+"use client"
 import { ProductCategoryCard } from "@/components/ui/product-category-card"
+import { client } from "@/sanity/lib/client";
+import { useEffect, useState } from "react";
 
-const categories = [
-  {
-    id: "1",
-    title: "Mini LCW Chair",
-    price: 56.00,
-    image: "/images/chair4.png",
-    href: "/product/1",
-    isNew: true,
-  },
-  {
-    id: "2",
-    title: "",
-    price: 56.00,
-    image: "/images/chair-3.png",
-    href: "/product/1",
-  },
-  {
-    id: "3",
-    title: "Mini LCW Chair",
-    price: 56.00,
-    image: "/images/chair-4.png",
-    href: "/product/1",
-  },
-  {
-    id: "4",
-    title: "Mini LCW Chair",
-    price: 56.00,
-    image: "/images/chair2.png",
-    href: "/product/1",
-  },
-]
 
+
+interface Product{
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  priceWithoutDiscount: number;
+  rating: number;
+  ratingCount: number;
+  tags: string[];
+  sizes: string[];
+  imageUrl: string;
+}
+
+
+
+
+async function getProducts() {
+  try {
+    const products = await client.fetch(`
+      *[_type == "product"]{
+        _id,
+        name,
+        description,
+        price,
+        discountPercentage,
+        priceWithoutDiscount,
+        rating,
+        ratingCount,
+        tags,
+        sizes,
+        "imageUrl": image.asset->url
+      }[6...10]
+    `);
+    return products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+}
 export function TopCategories() {
+  const [products, setProducts] = useState<Product[]>([]);
+  
+    useEffect(() => {
+      async function fetchData() {
+        const fetchedProducts = await getProducts();
+        setProducts(fetchedProducts);
+      }
+      fetchData();
+    }, []);
   return (
     <section className="py-24">
       <div className="container md:w-[1177px] mx-auto px-4">
@@ -40,8 +63,8 @@ export function TopCategories() {
           Top Categories
         </h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <ProductCategoryCard key={category.id} {...category} />
+          {products.map((product) => (
+            <ProductCategoryCard key={product._id} {...product} />
           ))}
         </div>
       </div>

@@ -4,39 +4,41 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 
 interface ProductCardProps {
-  id: string
-  title: string
+  _id: string
+  name: string
   price: number
-  image: string
-  isNew?: boolean
-  isFeatured?: boolean
-  discount?: string
+  imageUrl: string
+  discountPercentage?: number
+ 
 }
 
 export function ProductCard({
-  id,
-  title,
+  _id ,
+  name,
   price,
-  image,
-  isNew,
-  discount,
+  imageUrl,
+  
+  
 }: ProductCardProps) {
   return (
     <Card className="group relative overflow-hidden border-none">
       <div className="relative aspect-square overflow-hidden bg-[#F6F7FB]">
-        {isNew && (
+        <div className="flex gap-x-4 ">
+
+        {/* {isNew && ( */}
           <span className="absolute left-3 top-3 z-10 rounded bg-[#FB2E86] px-2 py-1 text-xs text-white">
             New
           </span>
-        )}
-        {discount && (
+        {/* )} */}
+        {/* {discountPercentage && (
           <span className="absolute left-3 top-3 z-10 rounded bg-[#FB2E86] px-2 py-1 text-xs text-white">
-            {discount}
+            {discountPercentage} %
           </span>
-        )}
+        )} */}
+        </div>
         <img
-          src={image}
-          alt={title}
+          src={imageUrl}
+          alt={name}
           className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-110"
         />
         <div className="absolute -right-12 top-3 flex flex-col gap-2 transition-all duration-300 group-hover:right-3">
@@ -60,21 +62,21 @@ export function ProductCard({
             className="h-8 w-8 rounded-full bg-white shadow-md hover:bg-[#FB2E86] hover:text-white"
             asChild
           >
-            <Link href={`/products/${id}`}>
+            <Link href={`/product/${_id}`}>
               <Search className="h-4 w-4" />
             </Link>
           </Button>
         </div>
       </div>
-      <div className="p-4 flex justify-between items-center text-center">
+      <div className="p-4 flex justify-between gap-x-[100px] items-center text-center">
         <Link
-          href={`/products/${id}`}
-          className="text-sm font-bold text-[#FB2E86]  hover:underline"
+          href={`/product/${_id}`}
+          className="text-sm font-bold text-[#FB2E86]  hover:underline  line-clamp-1"
         >
-          {title}
+          {name}
         </Link>
         <div className="">
-          <span className="font-bold text-[#151875]">${price.toFixed(2)}</span>
+          <span className="font-bold text-[#151875]">${price}</span>
         </div>
       </div>
     </Card>

@@ -51,7 +51,7 @@ export function ProductGallery({ images }: ProductGalleryProps) {
             <img
               src={image}
               alt={`Product thumbnail ${index + 1}`}
-              className="h-full w-full object-contain"
+              className="h-200 w-full object-contain"
             />
           </button>
         ))}

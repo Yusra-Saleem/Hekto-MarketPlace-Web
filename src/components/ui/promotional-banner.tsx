@@ -42,8 +42,8 @@ export function PromotionalBanner({
                       />
                     </div>
                     <div>
-                      <p className="text-sm text-[#151875]">{product.title}</p>
-                      <p className="text-sm text-[#151875]">${product.price.toFixed(2)}</p>
+                      <p className="text-sm text-[#151875] line line-clamp-2">{product.title}</p>
+                      <p className="text-sm text-[#151875]">${product.price}</p>
                     </div>
                   </div>
                 ))}

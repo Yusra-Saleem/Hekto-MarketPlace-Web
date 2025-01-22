@@ -2,51 +2,66 @@
 
 import * as React from "react"
 import { ProductCard } from "@/components/ui/product-card-home"
+import { client } from '@/sanity/lib/client';
+
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  priceWithoutDiscount: number;
+  rating: number;
+  ratingCount: number;
+  tags: string[];
+  sizes: string[];
+  imageUrl: string;
+}
+
+
 
 const categories = ["New Arrival", "Best Seller", "Featured", "Special Offer"]
 
-const latestProducts = [
-  {
-    id: "1",
-    title: "Comfort Handy Craft",
-    price: 42.00,
-    image: "/images/chair1.png",
-   
-  },
-  {
-    id: "2",
-    title: "Comfort Handy Craft",
-    price: 42.00,
-    image: "/images/chair2.png",
-  },
-  {
-    id: "3",
-    title: "Comfort Handy Craft",
-    price: 42.00,
-    image: "/images/chair3.png",
-  },
-  {
-    id: "4",
-    title: "Comfort Handy Craft",
-    price: 42.00,
-    image: "/images/chair4.png",
-  },
-  {
-    id: "5",
-    title: "Comfort Handy Craft",
-    price: 42.00,
-    image: "/images/chair5.png",
-  },
-  {
-    id: "6",
-    title: "Comfort Handy Craft",
-    price: 42.00,
-    image: "/images/chair-4.png",
-  },
-]
+
+
+async function getProducts() {
+  try {
+    const products = await client.fetch(`*[_type == "product" && "latest" in tags] {
+  _id, 
+  name, 
+  description, 
+  price, 
+  discountPercentage, 
+  "priceWithoutDiscount": price * (1 - discountPercentage / 100),
+  stockLevel, 
+  "imageUrl": image.asset->url, 
+  tags, 
+  sizes, 
+  colors, 
+  category, 
+  isFeaturedProduct
+}
+`);
+    return products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+}
+
 
 export function LatestProducts() {
   const [activeCategory, setActiveCategory] = React.useState("New Arrival")
+  const [latestProducts, setLatestProducts] = React.useState<Product[]>([])
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const fetchedProducts = await getProducts()
+      setLatestProducts(fetchedProducts)
+    }
+    fetchData()
+  }, [])
+
 
   return (
     <section className="py-16">
@@ -71,7 +86,7 @@ export function LatestProducts() {
         </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {latestProducts.map((product) => (
-            <ProductCard key={product.id} {...product} />
+            <ProductCard key={product._id} {...product} />
           ))}
         </div>
       </div>

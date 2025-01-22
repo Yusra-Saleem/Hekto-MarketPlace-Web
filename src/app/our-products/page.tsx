@@ -1,129 +1,119 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Heart, ShoppingCart, Star, Search, Grid, List } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { Slider } from "@/components/ui/slider"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Link from "next/link"
+import * as React from "react";
+import { Heart, ShoppingCart, Star, Search, Grid, List } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Link from "next/link";
+import { client } from "@/sanity/lib/client";
 
 interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  originalPrice: number
-  rating: number
-  image: string
-  colors: string[]
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  priceWithoutDiscount: number;
+  rating: number;
+  ratingCount: number;
+  tags: string[];
+  sizes: string[];
+  imageUrl: string;
+  colors: string[];
+  brand: string;
+  category: string;
 }
 
-const products: Product[] = [
-  {
-    id: "1",
-    name: "Dictum morbi",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/left-1.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "2",
-    name: "Sodales sit",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 4,
-    image: "/images/left-2.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "3",
-    name: "Nibh varius",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/left-3.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "4",
-    name: "Mauris quis",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/left-4.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "5",
-    name: "Morbi sagittis",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 4,
-    image: "/images/left-5.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "6",
-    name: "Ultrices venenatis",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 3,
-    image: "/images/left-6.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
-  },
-  {
-    id: "7",
-    name: "Scelerisque dignissim",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    price: 26.00,
-    originalPrice: 32.00,
-    rating: 5,
-    image: "/images/left-7.png",
-    colors: ["#FF8CB8", "#FFC93E", "#48C1C9"]
+async function getProducts() {
+  try {
+    const products = await client.fetch(`
+      *[_type == "product"]{
+        _id,
+        name,
+        description,
+        price,
+        discountPercentage,
+        priceWithoutDiscount,
+        rating,
+        ratingCount,
+        tags,
+        sizes,
+        "imageUrl": image.asset->url,
+        colors,
+        brand,
+        category
+      }
+    `);
+    return products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
   }
-]
+}
 
 export default function ShopPage() {
-  const [view, setView] = React.useState<"grid" | "list">("list")
-  const [priceRange, setPriceRange] = React.useState([0, 500])
-  const [selectedBrands, setSelectedBrands] = React.useState<string[]>([])
-  const [selectedDiscounts, setSelectedDiscounts] = React.useState<string[]>([])
-  const [selectedRating, setSelectedRating] = React.useState<string | null>(null)
-  const [selectedCategories, setSelectedCategories] = React.useState<string[]>([])
-  const [selectedColors, setSelectedColors] = React.useState<string[]>([])
-  const [sortBy, setSortBy] = React.useState("best-match")
-  const [perPage, setPerPage] = React.useState("15")
+  const [view, setView] = React.useState<"grid" | "list">("list");
+  const [priceRange, setPriceRange] = React.useState([0, 1000]);
+  const [selectedBrands, setSelectedBrands] = React.useState<string[]>([]);
+  const [selectedDiscounts, setSelectedDiscounts] = React.useState<string[]>([]);
+  const [selectedRating, setSelectedRating] = React.useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = React.useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = React.useState<string[]>([]);
+  const [sortBy, setSortBy] = React.useState("best-match");
+  const [perPage, setPerPage] = React.useState("15");
+  const [products, setProducts] = React.useState<Product[]>([]);
 
-  const filteredProducts = products.filter(product =>
-    (selectedRating ? product.rating >= parseInt(selectedRating) : true) &&
-    (product.price >= priceRange[0] && product.price <= priceRange[1])
-  )
+  React.useEffect(() => {
+    async function fetchData() {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    }
+    fetchData();
+  }, []);
+
+  const filteredProducts = products.filter((product) => {
+    const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
+    const matchesDiscount =
+      selectedDiscounts.length === 0 ||
+      selectedDiscounts.some((discount) => {
+        if (discount === "20% Cashback") return product.discountPercentage >= 20;
+        if (discount === "5% Cashback Offer") return product.discountPercentage >= 5;
+        if (discount === "25% Discount Offer") return product.discountPercentage >= 25;
+        return false;
+      });
+    const matchesRating = selectedRating ? product.rating >= parseInt(selectedRating) : true;
+    const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+    const matchesColor = selectedColors.length === 0 || selectedColors.some((color) => product.colors.includes(color));
+    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+
+    return (
+      matchesBrand &&
+      matchesDiscount &&
+      matchesRating &&
+      matchesCategory &&
+      matchesColor &&
+      matchesPrice
+    );
+  });
 
   const sortedProducts = React.useMemo(() => {
     return [...filteredProducts].sort((a, b) => {
-      if (sortBy === "price-low-high") return a.price - b.price
-      if (sortBy === "price-high-low") return b.price - a.price
-      return 0
-    })
-  }, [filteredProducts, sortBy])
+      if (sortBy === "price-low-high") return a.price - b.price;
+      if (sortBy === "price-high-low") return b.price - a.price;
+      return 0;
+    });
+  }, [filteredProducts, sortBy]);
 
   return (
     <div className="">
-     {/* Page Header */}
-     <div className=" h-[286px] bg-[#F6F5FF] flex items-center py-16">
+      {/* Page Header */}
+      <div className="h-[286px] bg-[#F6F5FF] flex items-center py-16">
         <div className="container md:w-[1170px] mx-auto px-4">
           <h1 className="text-3xl text-center text-[#151875] md:text-left font-bold mb-4">Shop Left sidebar</h1>
           <div className="flex justify-center text-[#151875] md:justify-start items-center gap-2 text-sm">
@@ -134,10 +124,12 @@ export default function ShopPage() {
             <span className="text-[#FB2E86]">Shop Left Sidebar</span>
           </div>
         </div>
-        </div>
+      </div>
+
       <div className="flex md:w-[1170px] my-8 mx-auto flex-col md:flex-row gap-8">
         {/* Sidebar */}
         <div className="w-full md:w-64 space-y-6">
+          {/* Brand Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Product Brand</h3>
             <div className="space-y-2 text-gray-400">
@@ -148,9 +140,9 @@ export default function ShopPage() {
                     checked={selectedBrands.includes(brand)}
                     onCheckedChange={(checked) => {
                       if (checked) {
-                        setSelectedBrands([...selectedBrands, brand])
+                        setSelectedBrands([...selectedBrands, brand]);
                       } else {
-                        setSelectedBrands(selectedBrands.filter(b => b !== brand))
+                        setSelectedBrands(selectedBrands.filter((b) => b !== brand));
                       }
                     }}
                   />
@@ -162,6 +154,7 @@ export default function ShopPage() {
 
           <Separator />
 
+          {/* Discount Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Discount Offer</h3>
             <div className="space-y-2 text-gray-400">
@@ -172,9 +165,9 @@ export default function ShopPage() {
                     checked={selectedDiscounts.includes(discount)}
                     onCheckedChange={(checked) => {
                       if (checked) {
-                        setSelectedDiscounts([...selectedDiscounts, discount])
+                        setSelectedDiscounts([...selectedDiscounts, discount]);
                       } else {
-                        setSelectedDiscounts(selectedDiscounts.filter(d => d !== discount))
+                        setSelectedDiscounts(selectedDiscounts.filter((d) => d !== discount));
                       }
                     }}
                   />
@@ -186,6 +179,7 @@ export default function ShopPage() {
 
           <Separator />
 
+          {/* Rating Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Rating Item</h3>
             <RadioGroup value={selectedRating || ""} onValueChange={setSelectedRating}>
@@ -194,7 +188,10 @@ export default function ShopPage() {
                   <RadioGroupItem value={rating.toString()} id={`r${rating}`} />
                   <Label htmlFor={`r${rating}`} className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+                      />
                     ))}
                     <span className="ml-2">({rating === 5 ? "2345" : rating === 4 ? "1234" : "543"})</span>
                   </Label>
@@ -205,6 +202,7 @@ export default function ShopPage() {
 
           <Separator />
 
+          {/* Category Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Categories</h3>
             <div className="space-y-2 text-gray-400">
@@ -215,9 +213,9 @@ export default function ShopPage() {
                     checked={selectedCategories.includes(category)}
                     onCheckedChange={(checked) => {
                       if (checked) {
-                        setSelectedCategories([...selectedCategories, category])
+                        setSelectedCategories([...selectedCategories, category]);
                       } else {
-                        setSelectedCategories(selectedCategories.filter(c => c !== category))
+                        setSelectedCategories(selectedCategories.filter((c) => c !== category));
                       }
                     }}
                   />
@@ -229,6 +227,7 @@ export default function ShopPage() {
 
           <Separator />
 
+          {/* Price Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Price Filter</h3>
             <Slider
@@ -236,7 +235,7 @@ export default function ShopPage() {
               onValueChange={setPriceRange}
               max={1000}
               step={10}
-              className="w-full "
+              className="w-full"
             />
             <div className="mt-2 text-sm text-slate-800">
               ${priceRange[0]} - ${priceRange[1]}
@@ -245,19 +244,22 @@ export default function ShopPage() {
 
           <Separator />
 
+          {/* Color Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Filter By Color</h3>
             <div className="flex flex-wrap gap-2">
               {["#FF8CB8", "#FFC93E", "#7C4AFF", "#41D37E", "#FB7DA9", "#6DCEF5"].map((color) => (
                 <button
                   key={color}
-                  className={`w-6 h-6 rounded-full cursor-pointer border-2 ${selectedColors.includes(color) ? 'border-black' : 'border-transparent'}`}
+                  className={`w-6 h-6 rounded-full cursor-pointer border-2 ${
+                    selectedColors.includes(color) ? "border-black" : "border-transparent"
+                  }`}
                   style={{ backgroundColor: color }}
                   onClick={() => {
                     if (selectedColors.includes(color)) {
-                      setSelectedColors(selectedColors.filter(c => c !== color))
+                      setSelectedColors(selectedColors.filter((c) => c !== color));
                     } else {
-                      setSelectedColors([...selectedColors, color])
+                      setSelectedColors([...selectedColors, color]);
                     }
                   }}
                 />
@@ -265,8 +267,9 @@ export default function ShopPage() {
             </div>
           </div>
         </div>
+
         {/* Main Content */}
-        <div className="flex-1 container  mx-auto px-4 py-16">
+        <div className="flex-1 container mx-auto px-4 py-16">
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center gap-2 md:gap-4">
               <span className="text-sm text-[#151875]">Per Page:</span>
@@ -314,17 +317,14 @@ export default function ShopPage() {
             </div>
           </div>
 
+          {/* Product List */}
           <div className={`grid gap-6 ${view === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>
             {sortedProducts.map((product) => (
-              <Card key={product.id} className={`overflow-hidden w-full ${view === "list" ? "md:h-[230px]" : " md:h-[550px] "}`}>
-                <CardContent className={`p-0 ${view === "list" ? "flex" : " "}`}>
-                  <div className={`${view === "grid" ? "flex justify-center items-center" : " md:w-2/6 h-full"}`}>
-                    <div className={`${view === "list" ? " w-full h-full" : "w-[235px] h-auto"} bg-muted aspect-square overflow-hidden`}>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className=" object-cover"
-                      />
+              <Card key={product._id} className={`overflow-hidden w-full ${view === "list" ? "md:h-[230px]" : "md:h-[550px]"}`}>
+                <CardContent className={`p-0 ${view === "list" ? "flex" : ""}`}>
+                  <div className={`${view === "grid" ? "flex justify-center items-center" : "md:w-2/6 h-full"}`}>
+                    <div className={`${view === "list" ? "w-full h-full" : "w-[235px] h-auto"} bg-muted aspect-square overflow-hidden`}>
+                      <img src={product.imageUrl} alt={product.name} className="object-cover" />
                     </div>
                   </div>
                   <div className={`${view === "list" ? "w-5/6" : "w-full"} p-4 md:space-y-4`}>
@@ -345,47 +345,35 @@ export default function ShopPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`w-3 h-3 md:w-4 md:h-4 ${i < product.rating
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-gray-300"
-                              }`}
+                            className={`w-3 h-3 md:w-4 md:h-4 ${
+                              i < product.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                            }`}
                           />
                         ))}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="md:text-xl font-bold text-[#151875] font-heading ">
+                      <span className="md:text-xl font-bold text-[#151875] font-heading">
                         ${product.price.toFixed(2)}
                       </span>
                       <span className="text-sm font-heading text-pink-500 line-through">
-                        ${product.originalPrice.toFixed(2)}
+                        ${product.priceWithoutDiscount.toFixed(2)}
                       </span>
                     </div>
-                    <p className={`text-muted-foreground ${view === "list" ? "hidden md:block " : " "} `}>{product.description}</p>
-                    <div className="hidden md:flex md:gap-3 transition-all duration-300 ">
-                      <Button
-
-                        className="h-8 w-8 rounded-full bg-white shadow-md text-[#151875] hover:bg-[#FB2E86] hover:text-white"
-                      >
-                        <ShoppingCart className="h-4 w-4 " />
+                    <p className={`text-muted-foreground ${view === "list" ? "hidden md:block" : ""}`}>
+                      {product.description}
+                    </p>
+                    <div className="hidden md:flex md:gap-3 transition-all duration-300">
+                      <Button className="h-8 w-8 rounded-full bg-white shadow-md text-[#151875] hover:bg-[#FB2E86] hover:text-white">
+                        <ShoppingCart className="h-4 w-4" />
                       </Button>
-                      <Button
-
-                        className="h-8 w-8 rounded-full bg-white shadow-md text-[#151875] hover:bg-[#FB2E86] hover:text-white"
-                      >
+                      <Button className="h-8 w-8 rounded-full bg-white shadow-md text-[#151875] hover:bg-[#FB2E86] hover:text-white">
                         <Heart className="h-4 w-4" />
                       </Button>
-                      <Button
-
-                        className="h-8 w-8 rounded-full bg-white shadow-md text-[#151875] hover:bg-[#FB2E86] hover:text-white"
-
-                      >
-
+                      <Button className="h-8 w-8 rounded-full bg-white shadow-md text-[#151875] hover:bg-[#FB2E86] hover:text-white">
                         <Search className="h-4 w-4" />
-
                       </Button>
                     </div>
-
                   </div>
                 </CardContent>
               </Card>
@@ -394,6 +382,5 @@ export default function ShopPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
