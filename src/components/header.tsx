@@ -35,18 +35,17 @@ function Header() {
     setIsSearching(true);
 
     try {
-      const query = `*[_type == "product" && (name match $query || tags[] match $query)]{
+      const query = `*[_type == "product" && (name match $searchQuery || tags[] match $searchQuery)]{
         _id,
         name,
         "imageUrl": image.asset->url,
         price,
         tags
       }`;
-      const params = { query: `${searchQuery.toLowerCase()}*` };
-      
-      
+      const params = { searchQuery: `${searchQuery.toLowerCase()}*` };
 
       const results: Product[] = await client.fetch(query, params);
+      console.log("Search Results:", results); // Debugging
       setSearchResults(results);
     } catch (error) {
       console.error("Error fetching search results:", error);
