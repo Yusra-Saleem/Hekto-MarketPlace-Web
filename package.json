@@ -9,7 +9,11 @@
     "lint": "next lint",
     "import-data": "node scripts/importSanityData.mjs",
     "delete-data": "node scripts/delete-data.mjs",
+<<<<<<< HEAD
     "delete-order": "node scripts/orderDelete.mjs"
+=======
+    "delete-order" : "node scripts/orderDelete.mjs"
+>>>>>>> aa248c3b61eb7d638056889873a8915ec531cdcd
   },
   "dependencies": {
     "@fontsource/josefin-sans": "^5.1.0",
@@ -27,7 +31,11 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slider": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.1",
+<<<<<<< HEAD
     "@radix-ui/react-tabs": "^1.1.2",
+=======
+    "@radix-ui/react-tabs": "^1.1.1",
+>>>>>>> aa248c3b61eb7d638056889873a8915ec531cdcd
     "@sanity/client": "^6.24.4",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.69.0",
@@ -38,7 +46,10 @@
     "daisyui": "^4.12.14",
     "dotenv": "^16.4.7",
     "lucide-react": "^0.468.0",
+<<<<<<< HEAD
     "module": "^1.2.5",
+=======
+>>>>>>> aa248c3b61eb7d638056889873a8915ec531cdcd
     "next": "14.2.15",
     "next-sanity": "^9.8.33",
     "react": "^18",
@@ -50,7 +61,10 @@
     "shipengine": "^1.0.7",
     "stripe": "^17.5.0",
     "styled-components": "^6.1.14",
+<<<<<<< HEAD
     "swr": "^2.3.0",
+=======
+>>>>>>> aa248c3b61eb7d638056889873a8915ec531cdcd
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
