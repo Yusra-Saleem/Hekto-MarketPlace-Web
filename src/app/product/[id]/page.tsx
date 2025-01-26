@@ -40,6 +40,8 @@ interface Product {
   category: string;
   isFeaturedProduct: boolean;
   additionalImages?: string[]; // Add this line
+  additionalDescription?: string; // Add this line
+  additionalInfo?: string; // Add this line
 }
 
 export default function ProductPage({ params }: { params: { id: string } }) {
@@ -224,8 +226,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         </div>
 
         {/* Product Details */}
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid gap-8 md:grid-cols-2">
+        <div className="container mx-auto px-4 py-16 " >
+          <div className="grid gap-8 md:grid-cols-2 ">
           <ProductGallery images={[product.imageUrl, ...(product.additionalImages || [])]} />
 
             <div className="space-y-6">
@@ -295,12 +297,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   
                 </Button>
               </div>
-              <div className="space-y-2 border-t pt-6">
-                <p>
-                  <span className="font-bold">Categories:</span> {product.category}
+              <div className="space-y-2 text-gray-500  border-t pt-6  capitalize">
+                <p >
+                  <span className="font-bold text-[#151875] font-heading mr-2">Categories:</span> {product.category}
                 </p>
-                <p>
-                  <span className="font-bold">Tags:</span> {product.tags}
+                <p >
+                  <span className="font-bold text-[#151875] font-heading mr-2 capitalize">Tags:</span> {product.tags.join("  ,  ")}
                 </p>
               </div>
             </div>
@@ -309,28 +311,27 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           {/* Product Information Tabs */}
           <div className="mt-16">
             <Tabs defaultValue="description">
-              <TabsList className="border-b space-x-4">
-                <TabsTrigger value="description">Description</TabsTrigger>
-                <TabsTrigger value="additional">Additional Info</TabsTrigger>
-                <TabsTrigger value="reviews">Reviews ({reviews.length})</TabsTrigger>
-                <TabsTrigger value="video">Video</TabsTrigger>
+              <TabsList className="border-b space-x-4 text-[#151875] ">
+                <TabsTrigger value="description"className="focus:bg-gray-100 px-3 mb-2 rounded">Description</TabsTrigger>
+                <TabsTrigger value="additional"className="focus:bg-gray-100 px-3 mb-2 rounded">Additional Info</TabsTrigger>
+                <TabsTrigger value="reviews"className="focus:bg-gray-100 px-3 mb-2 rounded">Reviews ({reviews.length})</TabsTrigger>
+                <TabsTrigger value="video"className="focus:bg-gray-100 px-3 mb-2 rounded">Video</TabsTrigger>
               </TabsList>
               <TabsContent value="description" className="mt-8">
                 <div className="prose max-w-none">
-                  <p>
-                    Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor
-                    ornare faucibus vel sed et eleifend habitasse amet. Montes,
-                    mauris varius ac est bibendum. Scelerisque a, risus ac ante.
-                    Velit consectetur neque, elit, aliquet. Non varius proin sed
-                    urna, egestas consequat laoreet diam tincidunt. Magna eget
-                    faucibus cras justo, tortor sed donec tempus. Imperdiet
-                    consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in
-                    fringilla vulputate nunc nec. Dui, massa viverr .
+                  <h3 className="font-heading text-2xl text-[#151875] mb-[8] font-bold ">Additional Description </h3>
+                  <p className=" text-gray-500 text-lg">
+                   {product.additionalDescription }
                   </p>
                 </div>
               </TabsContent>
               <TabsContent value="additional" className="mt-8">
-                {/* Additional Info can be added here */}
+              <div className="prose max-w-none bg-pink-100 border-l-4  p-4 border-pink-500">
+                  <h3 className="font-heading text-2xl text-[#151875] mb-[8] font-bold ">Additional Information </h3>
+                  <p className=" text-gray-500 text-lg">
+                   {product.additionalInfo }
+                  </p>
+                </div>
               </TabsContent>
               <TabsContent value="reviews" className="mt-8">
                 <div className="space-y-6">
@@ -350,13 +351,13 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                         </div>
                       ))
                     ) : (
-                      <p>No reviews yet.</p>
+                      <p className="font-heading text-[#151875] text-lg">No reviews yet.</p>
                     )}
                   </div>
                 </div>
               </TabsContent>
               <TabsContent value="video" className="mt-8">
-                <p>No video available.</p>
+                <p className="font-heading text-[#151875] text-lg">No video available.</p>
               </TabsContent>
             </Tabs>
           </div>
