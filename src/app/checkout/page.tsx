@@ -80,7 +80,7 @@ export default function CheckoutPage() {
       // Add from, to, and weight details
       const from = {
         name: "Yusra Saleem",
-        phone: "1234567890",
+        phone: "+92 3102983718",
         address_line1: "123 Main St",
         city_locality: "Austin",
         state_province: "TX",
@@ -295,7 +295,7 @@ export default function CheckoutPage() {
                         />
                       </FormControl>
                       <FormLabel className="text-sm text-gray-600">
-                        Save this information for next time
+                      Keep me up to date on news and excluive offers
                       </FormLabel>
                     </FormItem>
                   )}
@@ -304,12 +304,13 @@ export default function CheckoutPage() {
                   <h2 className="mb-8 text-xl font-bold text-[#101750] sm:text-lg">
                     Shipping Address
                   </h2>
-                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2  ">
                     <FormField
                       control={form.control}
                       name="firstName"
+                     
                       render={({ field }) => (
-                        <FormItem className="border-b-[3px] border-gray-300">
+                        <FormItem className="border-b-[3px] border-gray-300 mb-[15px] md:mb-[30px] mt-[8px]">
                           <FormControl>
                             <Input
                               placeholder="First Name"
@@ -325,7 +326,7 @@ export default function CheckoutPage() {
                       control={form.control}
                       name="lastName"
                       render={({ field }) => (
-                        <FormItem className="border-b-[3px] border-gray-300">
+                        <FormItem className="border-b-[3px] border-gray-300 mb-[15px] md:mb-[30px] mt-[8px]">
                           <FormControl>
                             <Input
                               placeholder="Last Name"
@@ -342,7 +343,7 @@ export default function CheckoutPage() {
                     control={form.control}
                     name="address"
                     render={({ field }) => (
-                      <FormItem className="border-b-[3px] border-gray-300">
+                      <FormItem className="border-b-[3px] border-gray-300  mb-[15px] md:mb-[30px] mt-[8px]">
                         <FormControl>
                           <Input
                             placeholder="Address"
@@ -358,7 +359,7 @@ export default function CheckoutPage() {
                     control={form.control}
                     name="apartment"
                     render={({ field }) => (
-                      <FormItem className="border-b-[3px] border-gray-300">
+                      <FormItem className="border-b-[3px] border-gray-300 mb-[15px] md:mb-[30px] mt-[8px]">
                         <FormControl>
                           <Input
                             placeholder="Apartment, suite, etc. (optional)"
@@ -374,7 +375,7 @@ export default function CheckoutPage() {
                     control={form.control}
                     name="city"
                     render={({ field }) => (
-                      <FormItem className="border-b-[3px] border-gray-300">
+                      <FormItem className="border-b-[3px] border-gray-300 mb-[15px] md:mb-[30px] mt-[8px]">
                         <FormControl>
                           <Input
                             placeholder="City"
@@ -391,7 +392,7 @@ export default function CheckoutPage() {
                       control={form.control}
                       name="postalCode"
                       render={({ field }) => (
-                        <FormItem className="border-b-[3px] border-gray-300">
+                        <FormItem className="border-b-[3px] border-gray-300 mb-[15px] md:mb-[30px] mt-[8px]">
                           <FormControl>
                             <Input
                               placeholder="Postal Code"
@@ -407,11 +408,11 @@ export default function CheckoutPage() {
                       control={form.control}
                       name="country"
                       render={({ field }) => (
-                        <FormItem className="border-b-[3px] border-gray-300">
+                        <FormItem className="border-b-[3px] border-gray-300  mb-[15px] md:mb-[30px] mt-[8px]">
                           <FormControl>
                             <Input
                               placeholder="Country"
-                              className="border-none text-gray-400"
+                              className="border-none text-gray-400 "
                               {...field}
                             />
                           </FormControl>
@@ -429,18 +430,18 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={fetchShippingRates}
-                    className="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
+                    className="mb-4 bg-pink-500 text-white px-4 py-2 rounded"
                   >
                     Get Shipping Rates
                   </button>
                   {rates.length > 0 && (
-                    <div className="space-y-4 grid md:grid-cols-3 gap-4">
+                    <div className="space-y-4 grid md:grid-cols-3 gap-4 items-center">
                       {rates.map((rate) => (
                         <div
                           key={rate.rate_id}
                           onClick={() => setSelectedRate(rate)}
-                          className={`p-4 border rounded cursor-pointer ${
-                            selectedRate?.rate_id === rate.rate_id ? "border-blue-500" : "border-gray-300"
+                          className={`p-[3px] border rounded cursor-pointer text-center  ${
+                            selectedRate?.rate_id === rate.rate_id ? "border-green-500 border-[4px] duration-300 " : "border-gray-300"
                           }`}
                         >
                           <p>{rate.service_type}</p>
@@ -454,7 +455,7 @@ export default function CheckoutPage() {
                 {/* Checkout Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-green-500 rounded-[6px] font-semibold text-white hover:bg-green-600/90"
+                  className="w-full bg-green-500 rounded-[6px] font-semibold text-white hover:bg-green-800/90"
                   disabled={!form.formState.isValid || !selectedRate}
                   onClick={handleCheckout}
                 >
@@ -500,7 +501,7 @@ export default function CheckoutPage() {
                   <span>${total.toFixed(2)}</span>
                 </div>
                 <p className="text-xs text-gray-500 py-2">
-                  ✓ Shipping & taxes calculated at checkout
+                 ✅ Shipping & taxes calculated at checkout
                 </p>
               </div>
             </div>

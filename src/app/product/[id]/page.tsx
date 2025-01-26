@@ -39,6 +39,7 @@ interface Product {
   colors: string[];
   category: string;
   isFeaturedProduct: boolean;
+  additionalImages?: string[]; // Add this line
 }
 
 export default function ProductPage({ params }: { params: { id: string } }) {
@@ -175,6 +176,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           "priceWithoutDiscount": price * (1 - discountPercentage / 100),
           stockLevel, 
           "imageUrl": image.asset->url, 
+          "additionalImages": additionalImages[].asset->url,
+           additionalDescription,
+           additionalInfo,
           tags, 
           sizes, 
           colors, 
@@ -187,7 +191,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
       const relatedData = await client.fetch(
         `*[_type == "product" && _id != $id][4...8]{
-          _id, name, price, "imageUrl": image.asset->url
+          _id, name,"priceWithoutDiscount": price * (1 - discountPercentage / 100), "imageUrl": image.asset->url
         }`,
         { id: params.id }
       );
@@ -222,7 +226,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         {/* Product Details */}
         <div className="container mx-auto px-4 py-16">
           <div className="grid gap-8 md:grid-cols-2">
-            <ProductGallery images={[product.imageUrl]} />
+          <ProductGallery images={[product.imageUrl, ...(product.additionalImages || [])]} />
+
             <div className="space-y-6">
               <h1 className="text-4xl font-bold text-[#151875]">{product.name}</h1>
               <div className="flex items-center gap-1">
@@ -235,7 +240,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               </div>
               <div className="flex items-center gap-4">
                 <span className="text-2xl font-bold text-[#151875]">
-                  ${product.priceWithoutDiscount}
+                  ${product.priceWithoutDiscount.toFixed(2)}
                 </span>
                 {product.discountPercentage > 0 && (
                   <span className="text-xl text-gray-400 line-through">
@@ -250,7 +255,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   {product.colors.map((color, index) => (
                     <button
                       key={index}
-                      className="h-6 w-6 rounded-full border-2"
+                      className="h-6 w-6 rounded-full border-2 focus:border-green-600"
                       style={{ backgroundColor: color }}
                     />
                   ))}
@@ -277,7 +282,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                     +
                   </button>
                 </div>
-                <Button onClick={handleAddToCart} className="bg-[#FB2E86] text-white rounded-xl hover:bg-[#FB2E86]/90">
+                <Button onClick={handleAddToCart} className="bg-[#FB2E86] text-white rounded-xl hover:bg-pink-600">
                   Add To Cart
                 </Button>
                 <Button

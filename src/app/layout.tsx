@@ -29,8 +29,8 @@ const lato = Lato({
 
 // Define metadata
 export const metadata: Metadata = {
-  title: "Your Website Title",
-  description: "Your website description goes here.",
+  title: "Hekto - Yusra Saleem Marketplace",
+  description: "Discover amazing products on Hekto. shop for luxury Sofa Sets, Chairs , and more.",
 };
 
 export default function RootLayout({
