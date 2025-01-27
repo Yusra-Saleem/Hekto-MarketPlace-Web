@@ -38,8 +38,8 @@ async function getProducts() {
         name,
         description,
         price,
-        discountPercentage,
-        priceWithoutDiscount,
+        discountPercentage, 
+        "priceWithoutDiscount": price * (1 - discountPercentage / 100),
         rating,
         ratingCount,
         tags,
@@ -47,7 +47,7 @@ async function getProducts() {
         "imageUrl": image.asset->url,
         colors,
         brand,
-        category
+        category,
       }
     `);
     return products;
@@ -126,9 +126,9 @@ export default function ShopPage() {
         </div>
       </div>
 
-      <div className="flex md:w-[1170px] my-8 mx-auto flex-col md:flex-row gap-8">
+      <div className="flex md:w-[1170px] my-8 mx-auto flex-col md:flex-row gap-8 p-2">
         {/* Sidebar */}
-        <div className="w-full md:w-64 space-y-6">
+        <div className="w-full md:w-64 space-y-6 p-2 ">
           {/* Brand Filter */}
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Product Brand</h3>
@@ -206,7 +206,7 @@ export default function ShopPage() {
           <div>
             <h3 className="font-bold text-lg text-[#151875] underline mb-4">Categories</h3>
             <div className="space-y-2 text-gray-400">
-              {["Prestashop", "Magento", "Bigcommerce", "osCommerce", "3dcart", "Bags", "Accessories", "Jewellery", "Watches"].map((category) => (
+              {["Chair" , "Sofa"].map((category) => (
                 <div key={category} className="flex items-center space-x-2">
                   <Checkbox
                     id={category}
@@ -235,7 +235,7 @@ export default function ShopPage() {
               onValueChange={setPriceRange}
               max={1000}
               step={10}
-              className="w-full"
+              className="w-[90%]"
             />
             <div className="mt-2 text-sm text-slate-800">
               ${priceRange[0]} - ${priceRange[1]}
@@ -346,7 +346,7 @@ export default function ShopPage() {
                           <Star
                             key={i}
                             className={`w-3 h-3 md:w-4 md:h-4 ${
-                              i < product.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                              i < 5 ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
                             }`}
                           />
                         ))}
