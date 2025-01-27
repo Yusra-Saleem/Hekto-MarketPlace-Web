@@ -34,10 +34,11 @@ async function getProducts() {
         name,
         description,
         price,
-        discountPercentage,
-        priceWithoutDiscount,
+        discountPercentage, 
+        "priceWithoutDiscount": price * (1 - discountPercentage / 100),
         rating,
         ratingCount,
+        colors, 
         tags,
         sizes,
         "imageUrl": image.asset->url
@@ -138,7 +139,7 @@ export default function ShopPage() {
             <Card key={product._id} className={`overflow-hidden w-full ${view === "list" ? "md:h-[230px]" : " md:h-[550px] "}`}>
               <CardContent className={`p-0 ${view === "list" ? "flex" : " "}`}>
                 <div className={`${view === "grid" ? "flex justify-center items-center" : " md:w-2/6"}`}>
-                  <div className={`${view === "list" ? " w-full h-full" : "w-[235px] h-auto"} bg-muted aspect-square overflow-hidden`}>
+                  <div className={`${view === "list" ? "  md:w-[200px] mx-auto" : "w-[235px] h-auto"} bg-muted aspect-square overflow-hidden`}>
                     <img
                       src={product.imageUrl}
                       alt={product.name}
@@ -149,7 +150,7 @@ export default function ShopPage() {
                 <div className={`${view === "list" ? "w-5/6" : "w-full"} p-4 md:space-y-4`}>
                   <div>
                     <div className="md:flex justify-between md:items-center md:w-[340px]">
-                      <h3 className="md:text-xl text-[#151875] font-semibold">{product.name}</h3>
+                      <h3 className="md:text-xl text-[#151875] font-semibold line-clamp-1">{product.name}</h3>
                       <div className="flex items-center gap-2 md:mt-2 mr-3">
                         {product.colors.map((color) => (
                           <div
@@ -164,7 +165,7 @@ export default function ShopPage() {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-3 h-3 md:w-4 md:h-4 ${i < product.rating
+                          className={`w-3 h-3 md:w-4 md:h-4 ${i < 5
                               ? "fill-yellow-400 text-yellow-400"
                               : "text-gray-300"
                             }`}
@@ -181,7 +182,7 @@ export default function ShopPage() {
                     </span>
                   </div>
                   <p className={`text-muted-foreground ${view === "list" ? "hidden md:block " : " "} `}>{product.description}</p>
-                  <div className="hidden md:flex md:gap-3 transition-all duration-300 ">
+                  <div className="flex md:gap-3 transition-all duration-300 ">
                     <Button
 
                       className="h-8 w-8 rounded-full bg-white shadow-md hover:bg-[#FB2E86] text-[#151875] hover:text-white"
