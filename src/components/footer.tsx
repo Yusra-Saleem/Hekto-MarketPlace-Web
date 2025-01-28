@@ -58,7 +58,7 @@ export default function Footer() {
       <div className="mt-16 bg-[#E7E4F8] py-4">
         <div className="container md:w-[1177px] mx-auto px-4">
           <div className="flex items-center px-16 justify-between text-sm text-[#9DA0AE]">
-            <p>©2024 Hekto - All rights reserved</p>
+            <p>©2024 Hekto-YUSRA SALEEM - All rights reserved</p>
             <div className="flex items-center gap-4">
               <Link href="#">
                 <img

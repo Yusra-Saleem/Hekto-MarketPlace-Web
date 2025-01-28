@@ -137,6 +137,7 @@ export default function ShopPage() {
         <div className={`grid gap-6 ${view === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>
           {products.map((product) => (
             <Card key={product._id} className={`overflow-hidden w-full ${view === "list" ? "md:h-[230px]" : " md:h-[550px] "}`}>
+              <Link href={`/product/${product._id}`}>
               <CardContent className={`p-0 ${view === "list" ? "flex" : " "}`}>
                 <div className={`${view === "grid" ? "flex justify-center items-center" : " md:w-2/6"}`}>
                   <div className={`${view === "list" ? "  md:w-[200px] mx-auto" : "w-[235px] h-auto"} bg-muted aspect-square overflow-hidden`}>
@@ -195,6 +196,7 @@ export default function ShopPage() {
                     >
                       <Heart className="h-4 w-4" />
                     </Button>
+                    <Link href={`/product/${product._id}`}>
                     <Button
 
                       className="h-8 w-8 rounded-full bg-white shadow-md hover:bg-[#FB2E86] text-[#151875] hover:text-white"
@@ -204,10 +206,12 @@ export default function ShopPage() {
                       <Search className="h-4 w-4" />
 
                     </Button>
+                    </Link>
                   </div>
 
                 </div>
               </CardContent>
+              </Link>
             </Card>
           ))}
         </div>
