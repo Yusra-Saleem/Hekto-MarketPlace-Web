@@ -56,19 +56,19 @@ export default function WishlistPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
             {wishlist.map((item) => (
               <div
                 key={item.id}
-                className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow  flex flex-col items-center"
               >
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-48 object-cover"
+                  className=" h-[230px] mx-auto  object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#151875]">
+                  <h3 className="text-lg font-semibold text-[#151875] line-clamp-1">
                     {item.name}
                   </h3>
                   <p className="text-sm text-gray-600">
@@ -82,14 +82,14 @@ export default function WishlistPage() {
                       className="flex-1 bg-[#FB2E86] text-white hover:bg-[#FB2E86]/90"
                       onClick={() => handleAddToCart(item)}
                     >
-                      <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                      <ShoppingCart className="mr-[2px] h-4 w-4" /> Add to Cart
                     </Button>
                     <Button
                       variant="outline"
-                      className="text-[#FB2E86] border-[#FB2E86] hover:bg-[#FB2E86]/10"
+                      className="text-[#FB2E86] border-[#FB2E86] hover:bg-[#FB2E86]/10 mr-2"
                       onClick={() => removeFromWishlist(item.id)}
                     >
-                      <Heart className="mr-2 h-4 w-4" /> Remove
+                      <Heart className="mr-[2px] h-4 w-4" /> Remove
                     </Button>
                   </div>
                 </div>
