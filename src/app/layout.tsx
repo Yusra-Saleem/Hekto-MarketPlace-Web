@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Josefin_Sans, Lato } from 'next/font/google';
 import "./globals.css";
-
+import { ClerkProvider } from "@clerk/nextjs";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CartProvider from '../components/ui/CartProvider';
@@ -40,6 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={`${josefinSans.variable} ${lato.variable}`}>
       <Script
@@ -84,5 +85,6 @@ export default function RootLayout({
         </CartProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { client } from "../sanity/lib/client";
+import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+
 
 interface Product {
   _id: string;
@@ -16,6 +18,7 @@ interface Product {
 }
 
 function Header() {
+  const { isSignedIn, user } = useUser();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showSublinks, setShowSublinks] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -72,34 +75,33 @@ function Header() {
         <div className="w-full flex justify-center px-[15px] md:px-[135px]">
           <div className="w-full md:w-full lg:w-[1170px] flex items-center justify-between h-[50px]">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold">Hekto</h1>
+              <h1 className="text-2xl font-bold text-[#101750]">Hekto</h1>
               <div className="hidden md:block">
                 <ul className="flex md:flex-row md:gap-x-2 lg:gap-x-3 text-base ml-20 font-medium text-black">
                   <li className="relative group p-4 hover:underline underline-offset-2">
-                    <Link href="/" className="hover:text-[#FB2E86] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
+                    <Link href="/" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
                       Home <IoIosArrowDown className="mt-1" />
                     </Link>
                     <ul className="hidden group-hover:block absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2 border border-gray-200 z-10">
-                      <Link href="/faq"><li className="p-2 hover:bg-gray-100 cursor-pointer">FAQ</li></Link>
-                      <Link href="/about"><li className="p-2 hover:bg-gray-100 cursor-pointer">About Us</li></Link>
-                      <Link href="/account"><li className="p-2 hover:bg-gray-100 cursor-pointer">My Account</li></Link>
-                      <Link href="/cart"><li className="p-2 hover:bg-gray-100 cursor-pointer">CartPage</li></Link>
-                      <Link href="/checkout"><li className="p-2 hover:bg-gray-100 cursor-pointer">Check Out Page</li></Link>
+                      <Link href="/faq"><li className="p-2 hover:bg-gray-100 cursor-pointer hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">FAQ</li></Link>
+                      <Link href="/about"><li className="p-2 hover:bg-gray-100 cursor-pointer hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">About Us</li></Link>
+                     
+                    
                     </ul>
                   </li>
-                  <li className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]">
+                  <li className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
                     <Link href="/product-page">Pages</Link>
                   </li>
-                  <li className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]">
+                  <li className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
                     <Link href="/our-products">Product</Link>
                   </li>
-                  <li className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]">
+                  <li className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
                     <Link href="/blog">Blog</Link>
                   </li>
-                  <li className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]">
+                  <li className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
                     <Link href="/shop">Shop</Link>
                   </li>
-                  <li className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86]">
+                  <li className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
                     <Link href="/contact">Contact</Link>
                   </li>
                 </ul>
@@ -122,7 +124,24 @@ function Header() {
                   <FontAwesomeIcon icon={faSearch} className="w-4 h-4 text-center text-white" />
                 </button>
               </div>
-              <button className="text-black block md:hidden text-3xl z-50" onClick={toggleMenu}>
+              {isSignedIn ? (
+                <>
+                  <Link href="/dashboard" className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">
+                    Dashboard
+                  </Link>
+                  <UserButton afterSignOutUrl="/" />
+                </>
+              ) : (
+                <>
+                  <SignInButton mode="redirect">
+                    <button  className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">Login</button>
+                  </SignInButton>
+                  <SignUpButton mode="redirect">
+                    <button  className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">Sign Up</button>
+                  </SignUpButton>
+                </>
+              )}
+              <button className=" block md:hidden text-3xl z-50 hover:text-[#FB2E86]  text-[#101750]  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]" onClick={toggleMenu}>
                 ☰
               </button>
             </div>
@@ -201,27 +220,24 @@ function Header() {
           <ul className="space-y-6 mt-8">
             <li className="relative">
               <div
-                className="hover:text-[rgb(251,46,134)] flex items-center focus:text-[#FB2E86] active:text-[#FB2E86] cursor-pointer"
+                className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
                 onClick={() => setShowSublinks(!showSublinks)}
               >
                 Home
-                <span className={`ml-auto transform ${showSublinks ? 'rotate-180' : ''}`}>▼</span>
+                <span className={`ml-auto  transform ${showSublinks ? 'rotate-180' : ''}`}>▼</span>
               </div>
               {showSublinks && (
                 <ul className="mt-2 space-y-2 pl-4">
-                  <li><Link href="/faq">FAQ</Link></li>
-                  <li><Link href="/about">About Us</Link></li>
-                  <li><Link href="/account">My Account</Link></li>
-                  <li><Link href="/cart">CartPage</Link></li>
-                  <li><Link href="/checkout">Check Out Page</Link></li>
+                  <li><Link href="/faq" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">FAQ</Link></li>
+                  <li><Link href="/about" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">About Us</Link></li>
                 </ul>
               )}
             </li>
-            <li><Link href="/product-page">Pages</Link></li>
-            <li><Link href="/our-products">Product</Link></li>
-            <li><Link href="/blog">Blog</Link></li>
-            <li><Link href="/shop">Shop</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/product-page" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Pages</Link></li>
+            <li><Link href="/our-products" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Product</Link></li>
+            <li><Link href="/blog" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Blog</Link></li>
+            <li><Link href="/shop" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Shop</Link></li>
+            <li><Link href="/contact" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Contact</Link></li>
           </ul>
         </div>
       )}

@@ -4,6 +4,7 @@ export default {
   title: "Order",
   fields: [
     // Checkout Details
+   
     {
       name: "firstName",
       type: "string",
@@ -85,6 +86,14 @@ export default {
               type: "number",
               title: "Quantity",
             },
+            {
+              name: 'image',
+              type: 'image',
+              title: 'Main Image',
+              
+              description: 'Upload the main image of the product.',
+            },
+            
           ],
         },
       ],

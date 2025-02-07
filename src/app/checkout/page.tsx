@@ -19,6 +19,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useCart } from "../../components/ui/CartProvider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useUser } from "@clerk/nextjs"
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -35,6 +36,7 @@ const formSchema = z.object({
 
 export default function CheckoutPage() {
   const { cart, subtotal, total } = useCart();
+  const { user } = useUser()
   
   type Rate = {
     rate_id: string;
@@ -146,7 +148,8 @@ export default function CheckoutPage() {
       const orderData = {
         firstName: form.getValues("firstName"),
         lastName: form.getValues("lastName"),
-        email: form.getValues("email"),
+        userId: user?.id, // Add this line
+        email: user?.primaryEmailAddress?.emailAddress,
         address: form.getValues("address"),
         apartment: form.getValues("apartment"),
         city: form.getValues("city"),
