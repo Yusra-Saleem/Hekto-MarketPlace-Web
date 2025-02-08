@@ -48,7 +48,7 @@ function TopHeader() {
 
 
         <span className="flex gap-2 items-center ml-2">
-        <SignInButton mode="redirect">
+        <SignInButton mode="redirect" path="/login">
                    
                  
         <span>Login
