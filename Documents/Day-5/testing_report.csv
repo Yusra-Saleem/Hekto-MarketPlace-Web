@@ -1,0 +1,9 @@
+Test Case ID,Test Case Description,Test Steps,Expected Result,Actual Result,Status,Severity Level,Remarks
+TC001,Validate product listing page,Open product page > Verify products,Products displayed correctly,Products displayed correctly,Passed,Low,No issues found
+TC002,Test API error handling,Disconnect API > Refresh page,Show fallback UI with error message,Error message shown,Passed,Medium,Handled gracefully
+TC003,Check cart functionality,Add product to cart > Verify cart contents,Cart updates with added product,Cart updates as expected,Passed,High,Works as expected
+TC004,Ensure responsiveness on mobile,Resize browser window > Check layout,Layout adjusts properly to screen size,Responsive layout working as intended,Passed,Medium,Test successful
+TC005,Performance Testing - LCP,Run Lighthouse audit,LCP under 2.5s,LCP at 1.8s,Passed,High,Optimized images and lazy loading
+TC006,Performance Testing - FID,Run Lighthouse audit,FID under 100ms,FID at 10ms,Passed,High,Removed unused JS
+TC007,Performance Testing - CLS,Run Lighthouse audit,CLS under 0.1,CLS at 0.001,Passed,Medium,Reserved space for images
+TC008,SEO Optimization,Check structured data implementation,Valid structured data detected,Valid structured data detected,Passed,Medium,Verified using Rich Results Test
