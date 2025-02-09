@@ -1,5 +1,3 @@
-import { Clock, ShieldCheck, Trophy, Truck } from 'lucide-react'
-import { ServiceCard } from "../components/ui/service-card"
 
 export function WhatShopexOffers() {
   return (
@@ -8,30 +6,74 @@ export function WhatShopexOffers() {
         <h2 className="mb-12 text-center text-3xl font-bold text-[#1A0B5B]">
           What Shopex Offers!
         </h2>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <ServiceCard
-            icon={<Truck className="h-8 w-8" />}
-            title="24/7 Support"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida."
-          />
-          <ServiceCard
-            icon={<ShieldCheck className="h-8 w-8" />}
-            title="Money Back Guarantee"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida."
-          />
-          <ServiceCard
-            icon={<Trophy className="h-8 w-8" />}
-            title="Premium Quality"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida."
-          />
-          <ServiceCard
-            icon={<Clock className="h-8 w-8" />}
-            title="Free Shipping"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida."
-          />
+
+        <div className="grid gap-8 md:grid-cols-4 ">
+          <div className="text-center  bg-transparent  px-8 duration-500 cursor-pointer  py-8">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center">
+              <img src={"/images/delvry.png"} alt={"dlvry image"} />
+            </div>
+            <h3 className="mb-2 text-lg font-bold text-[#151875]">
+              {"Free Delivery"}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.  "
+              }
+            </p>
+          </div>
+        
+
+    
+          <div className="text-center  bg-transparent  px-8 duration-500 cursor-pointer  py-8">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center">
+              <img src={"/images/cashback.png"} alt={"cashback image"} />
+            </div>
+            <h3 className="mb-2 text-lg font-bold text-[#151875]">
+              {"100% Cash Back"}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.  "
+              }
+            </p>
+          </div>
+      
+
+       
+          <div className="text-center  bg-transparent  px-8 duration-500 cursor-pointer  py-8">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center">
+              <img src={"/images/guarentee.png"} alt={"guarentee image"} />
+            </div>
+            <h3 className="mb-2 text-lg font-bold text-[#151875]">
+              {"Quality Product"}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.  "
+              }
+            </p>
+          </div>
+   
+
+
+        
+          <div className="text-center  bg-transparent  px-8 duration-500 cursor-pointer  py-8">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center">
+              <img src={"/images/support.png"} alt={"support image"} />
+            </div>
+            <h3 className="mb-2 text-lg font-bold text-[#151875]">
+              {"24/7 Support"}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.  "
+              }
+            </p>
+          </div>
         </div>
+
+       
       </div>
     </section>
-  )
+  );
 }
-
