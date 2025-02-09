@@ -125,21 +125,29 @@ function Header() {
                 </button>
               </div>
               {isSignedIn ? (
-                <>
-                  <Link href="/dashboard" className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">
-                    Dashboard
-                  </Link>
-                  <UserButton afterSignOutUrl="/" />
-                </>
-              ) : (
-                <>
-                  <SignInButton mode="redirect">
-                    <button  className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">Login</button>
-                  </SignInButton>
-                  <SignUpButton mode="redirect">
-                    <button  className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">Sign Up</button>
-                  </SignUpButton>
-                </>
+  <>
+    <Link
+      href="/dashboard"
+      className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2"
+    >
+      Dashboard
+    </Link>
+    <UserButton afterSignOutUrl="/" />
+  </>
+) : (
+  <>
+    <Link href="/login">
+      <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2">
+        Login
+      </button>
+    </Link>
+    <Link href="/sign-up">
+      <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2">
+        Sign Up
+      </button>
+    </Link>
+  </>
+)}
               )}
               <button className=" block md:hidden text-3xl z-50 hover:text-[#FB2E86]  text-[#101750]  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]" onClick={toggleMenu}>
                 ☰
