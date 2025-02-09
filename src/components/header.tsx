@@ -8,7 +8,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { client } from "../sanity/lib/client";
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 
-
 interface Product {
   _id: string;
   name: string;
@@ -79,14 +78,23 @@ function Header() {
               <div className="hidden md:block">
                 <ul className="flex md:flex-row md:gap-x-2 lg:gap-x-3 text-base ml-20 font-medium text-black">
                   <li className="relative group p-4 hover:underline underline-offset-2">
-                    <Link href="/" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
+                    <Link
+                      href="/"
+                      className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+                    >
                       Home <IoIosArrowDown className="mt-1" />
                     </Link>
                     <ul className="hidden group-hover:block absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2 border border-gray-200 z-10">
-                      <Link href="/faq"><li className="p-2 hover:bg-gray-100 cursor-pointer hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">FAQ</li></Link>
-                      <Link href="/about"><li className="p-2 hover:bg-gray-100 cursor-pointer hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">About Us</li></Link>
-                     
-                    
+                      <Link href="/faq">
+                        <li className="p-2 hover:bg-gray-100 cursor-pointer hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
+                          FAQ
+                        </li>
+                      </Link>
+                      <Link href="/about">
+                        <li className="p-2 hover:bg-gray-100 cursor-pointer hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
+                          About Us
+                        </li>
+                      </Link>
                     </ul>
                   </li>
                   <li className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">
@@ -121,35 +129,41 @@ function Header() {
                   className="bg-[#FB2E86] px-3 py-2 rounded-tr-[4px] rounded-br-[4px]"
                   onClick={handleSearch}
                 >
-                  <FontAwesomeIcon icon={faSearch} className="w-4 h-4 text-center text-white" />
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    className="w-4 h-4 text-center text-white"
+                  />
                 </button>
               </div>
               {isSignedIn ? (
-  <>
-    <Link
-      href="/dashboard"
-      className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2"
-    >
-      Dashboard
-    </Link>
-    <UserButton afterSignOutUrl="/" />
-  </>
-) : (
-  <>
-    <Link href="/login">
-      <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2">
-        Login
-      </button>
-    </Link>
-    <Link href="/sign-up">
-      <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2">
-        Sign Up
-      </button>
-    </Link>
-  </>
-)}
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2"
+                  >
+                    Dashboard
+                  </Link>
+                  <UserButton afterSignOutUrl="/" />
+                </>
+              ) : (
+                <>
+                  <Link href="/login">
+                    <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2">
+                      Login
+                    </button>
+                  </Link>
+                  <Link href="/sign-up">
+                    <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-2">
+                      Sign Up
+                    </button>
+                  </Link>
+                </>
               )}
-              <button className=" block md:hidden text-3xl z-50 hover:text-[#FB2E86]  text-[#101750]  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]" onClick={toggleMenu}>
+
+              <button
+                className=" block md:hidden text-3xl z-50 hover:text-[#FB2E86]  text-[#101750]  focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+                onClick={toggleMenu}
+              >
                 ☰
               </button>
             </div>
@@ -169,9 +183,19 @@ function Header() {
           ) : searchResults.length > 0 ? (
             <ul className="space-y-2 p-4">
               {searchResults.map((product) => (
-                <li key={product._id} className="hover:bg-gray-100 p-2 rounded-md">
-                  <Link href={`/product/${product._id}`} className="flex items-center gap-4">
-                    <img src={product.imageUrl} alt={product.name} className="w-10 h-10 object-cover rounded-md" />
+                <li
+                  key={product._id}
+                  className="hover:bg-gray-100 p-2 rounded-md"
+                >
+                  <Link
+                    href={`/product/${product._id}`}
+                    className="flex items-center gap-4"
+                  >
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-10 h-10 object-cover rounded-md"
+                    />
                     <div>
                       <p className="font-medium">{product.name}</p>
                       <p className="text-sm text-gray-600">${product.price}</p>
@@ -208,12 +232,24 @@ function Header() {
                 ) : searchResults.length > 0 ? (
                   <ul className="space-y-2 p-4">
                     {searchResults.map((product) => (
-                      <li key={product._id} className="hover:bg-gray-100 p-2 rounded-md">
-                        <Link href={`/product/${product._id}`} className="flex items-center gap-4">
-                          <img src={product.imageUrl} alt={product.name} className="w-10 h-10 object-cover rounded-md" />
+                      <li
+                        key={product._id}
+                        className="hover:bg-gray-100 p-2 rounded-md"
+                      >
+                        <Link
+                          href={`/product/${product._id}`}
+                          className="flex items-center gap-4"
+                        >
+                          <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="w-10 h-10 object-cover rounded-md"
+                          />
                           <div>
                             <p className="font-medium">{product.name}</p>
-                            <p className="text-sm text-gray-600">${product.price}</p>
+                            <p className="text-sm text-gray-600">
+                              ${product.price}
+                            </p>
                           </div>
                         </Link>
                       </li>
@@ -232,20 +268,73 @@ function Header() {
                 onClick={() => setShowSublinks(!showSublinks)}
               >
                 Home
-                <span className={`ml-auto  transform ${showSublinks ? 'rotate-180' : ''}`}>▼</span>
+                <span
+                  className={`ml-auto  transform ${showSublinks ? "rotate-180" : ""}`}
+                >
+                  ▼
+                </span>
               </div>
               {showSublinks && (
                 <ul className="mt-2 space-y-2 pl-4">
-                  <li><Link href="/faq" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">FAQ</Link></li>
-                  <li><Link href="/about" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">About Us</Link></li>
+                  <li>
+                    <Link
+                      href="/faq"
+                      className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+                    >
+                      FAQ
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/about"
+                      className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+                    >
+                      About Us
+                    </Link>
+                  </li>
                 </ul>
               )}
             </li>
-            <li><Link href="/product-page" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Pages</Link></li>
-            <li><Link href="/our-products" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Product</Link></li>
-            <li><Link href="/blog" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Blog</Link></li>
-            <li><Link href="/shop" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Shop</Link></li>
-            <li><Link href="/contact" className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]">Contact</Link></li>
+            <li>
+              <Link
+                href="/product-page"
+                className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+              >
+                Pages
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/our-products"
+                className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+              >
+                Product
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/blog"
+                className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+              >
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/shop"
+                className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+              >
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="hover:text-[#FB2E86] flex text-[#101750] items-center focus:text-[#FB2E86] active:text-[#FB2E86] hover:stroke-[#FB2E86]"
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
       )}
