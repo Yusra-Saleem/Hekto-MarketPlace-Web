@@ -148,12 +148,12 @@ function Header() {
               ) : (
                 <>
                   <Link href="/login">
-                    <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-1">
+                    <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">
                       Login
                     </button>
                   </Link>
                   <Link href="/sign-up">
-                    <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-4 py-1">
+                    <button className="text-sm hover:underline hover:bg-[#37439e] duration-500 bg-[#FB2E86] text-white font-semibold rounded-xl px-3 py-1">
                       Sign Up
                     </button>
                   </Link>
