@@ -6,6 +6,7 @@ import { Button } from '../../components/ui/button';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { useWishlist } from '../../components/ui/WishListProvide';
 import { useCart } from '../../components/ui/CartProvider';
+import { useUser } from '@clerk/nextjs'; // Clerk Authentication
 
 type WishlistItem = {
   id: string;
@@ -19,12 +20,29 @@ type WishlistItem = {
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
+  const { isSignedIn } = useUser(); // Check user authentication
 
-  console.log('Wishlist items:', wishlist); // Debugging: Check if wishlist is being passed correctly
+  console.log('Wishlist items:', wishlist);
 
   const handleAddToCart = (item: WishlistItem) => {
     addToCart({ ...item, quantity: 1 });
   };
+
+  if (!isSignedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+          <h2 className="text-2xl font-bold text-[#151875]">Login Required</h2>
+          <p className="text-gray-600 mt-2">Please log in to access your wishlist.</p>
+          <Link href="/login">
+            <Button className="mt-4 bg-[#FB2E86] text-white hover:bg-[#FB2E86]/90">
+              Login Now
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -56,16 +74,16 @@ export default function WishlistPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {wishlist.map((item) => (
               <div
                 key={item.id}
-                className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow  flex flex-col items-center"
+                className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow flex flex-col items-center"
               >
                 <img
                   src={item.image}
                   alt={item.name}
-                  className=" h-[230px] mx-auto  object-cover"
+                  className="h-[230px] mx-auto object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-[#151875] line-clamp-1">

@@ -6,12 +6,14 @@ import { Button } from "../../components/ui/button";
 import { CartItem } from "../../components/ui/cart-item";
 import { Input } from "../../components/ui/input";
 import { useCart } from "../../components/ui/CartProvider";
+import { useUser } from '@clerk/nextjs'; 
 
 export default function CartPage() {
   const [shippingCountry, setShippingCountry] = React.useState("");
   const [shippingState, setShippingState] = React.useState("");
   const [shippingZip, setShippingZip] = React.useState("");
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
+  const { isSignedIn } = useUser(); 
 
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -31,6 +33,25 @@ export default function CartPage() {
   const handleClearCart = () => {
     clearCart();
   };
+
+
+
+  if (!isSignedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+          <h2 className="text-2xl font-bold text-[#151875]">Access Denied Login Required</h2>
+          <p className="text-gray-600 mt-2">Please log in to access your cart.</p>
+          <Link href="/login">
+            <Button className="mt-4 bg-[#FB2E86] text-white rounded  hover:bg-[#FB2E86]/90">
+              Login Now
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div>
