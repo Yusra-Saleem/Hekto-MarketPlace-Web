@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { client } from "../sanity/lib/client";
-import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+import {  SignInButton, SignUpButton , UserButton, useUser } from "@clerk/nextjs";
 
 interface Product {
   _id: string;
