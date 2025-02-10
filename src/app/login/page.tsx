@@ -4,8 +4,8 @@ import { SignIn } from "@clerk/nextjs";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 bg-[#F6F5FF]">
-      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
+    <div className="min-h-screen flex items-center justify-center mx-auto px-4 sm:px-6 md:px-8 bg-[#F6F5FF]">
+      <div className="w-full max-w-xs mx-auto sm:max-w-sm md:max-w-md">
         <SignIn
           routing="path"
           path="/login"

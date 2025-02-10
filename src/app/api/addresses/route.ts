@@ -16,7 +16,8 @@ interface Address {
 // Fetch addresses for a user
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const email = searchParams.get("email"); // Use `email` instead of `userEmail`
+  const email = searchParams.get("email");
+  console.log("Received email:", email);
 
   if (!email) {
     return NextResponse.json({ error: "User Email is required" }, { status: 400 });

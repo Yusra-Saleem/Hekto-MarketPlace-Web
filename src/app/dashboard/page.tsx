@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import Image from "next/image";
-import { urlFor } from "../../sanity/lib/image";
+
 import { Package, MapPin, Clock, Plus, Trash2 ,  Edit2, ChevronRight} from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -44,7 +44,7 @@ export default function ProfileDashboard() {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [isAddingAddress, setIsAddingAddress] = useState(false);
   const [newAddress, setNewAddress] = useState<Address>({
-    email: user?.primaryEmailAddress?.emailAddress ?? "",
+    email: user?.primaryEmailAddress?.emailAddress ??"",
     name: "",
     street: "",
     city: "",
@@ -89,7 +89,6 @@ export default function ProfileDashboard() {
     };
     fetchAddresses();
   }, [user]);
-
   const handleAddAddress = async () => {
     if (
       !newAddress.name ||
@@ -102,27 +101,38 @@ export default function ProfileDashboard() {
       alert("Please fill in all address fields.");
       return;
     }
-
+  
+    // Ensure `user.primaryEmailAddress.emailAddress` exists
+    if (!user?.primaryEmailAddress?.emailAddress) {
+      alert("User email is missing. Please log in again.");
+      return;
+    }
+  
     try {
-      console.log("Sending new address:", newAddress); // Debugging
-
+      const addressToSend = {
+        ...newAddress, // Spread all other address fields
+        email: user?.primaryEmailAddress?.emailAddress, // Ensure email is set
+      };
+  
+      console.log("Sending address:", addressToSend); // Debugging
+  
       const response = await fetch("/api/addresses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newAddress),
+        body: JSON.stringify(addressToSend), // Ensure email is included
       });
-
+  
       if (!response.ok) {
-        const errorData = await response.json(); // Debugging
-        console.error("Error response:", errorData); // Debugging
+        const errorData = await response.json();
+        console.error("Error response:", errorData);
         throw new Error("Failed to add address.");
       }
-
+  
       const result = await response.json();
       setAddresses([...addresses, result]);
       setIsAddingAddress(false);
       setNewAddress({
-        email: user?.primaryEmailAddress?.emailAddress || "",
+        email: user.primaryEmailAddress.emailAddress, // Keep email
         name: "",
         street: "",
         city: "",
@@ -130,12 +140,14 @@ export default function ProfileDashboard() {
         postalCode: "",
         country: "",
       });
+  
       alert("Address added successfully!");
     } catch (error) {
       console.error("Error adding address:", error);
       alert("Failed to add address.");
     }
   };
+  
 
   // Handle deleting an address
   const handleDeleteAddress = async (id: string): Promise<void> => {
