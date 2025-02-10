@@ -67,36 +67,36 @@ export default function WishlistProvider({ children }: { children: React.ReactNo
     setWishlist((prevWishlist) => {
       const existingItem = prevWishlist.find((i) => i.id === item.id);
       if (existingItem) {
-        toast.info(`${item.name} is already in your wishlist.`, {
-          position: 'bottom-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          style: {
-            backgroundColor: '#FB2E86',
-            color: '#FFFFFF',
-            borderRadius: '8px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          },
-        });
+        // toast.info(`${item.name} is already in your wishlist.`, {
+        //   position: 'bottom-right',
+        //   autoClose: 3000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   style: {
+        //     backgroundColor: '#FB2E86',
+        //     color: '#FFFFFF',
+        //     borderRadius: '8px',
+        //     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        //   },
+        // });
         return prevWishlist;
       }
-      toast.success(`${item.name} has been added to your wishlist.`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        style: {
-          backgroundColor: '#FB2E86',
-          color: '#FFFFFF',
-          borderRadius: '8px',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        },
-      });
+      // toast.success(`${item.name} has been added to your wishlist.`, {
+      //   position: 'bottom-right',
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   style: {
+      //     backgroundColor: '#FB2E86',
+      //     color: '#FFFFFF',
+      //     borderRadius: '8px',
+      //     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+      //   },
+      // });
       return [...prevWishlist, item];
     });
   }, []);
@@ -105,20 +105,20 @@ export default function WishlistProvider({ children }: { children: React.ReactNo
     setWishlist((prevWishlist) => {
       const removedItem = prevWishlist.find((item) => item.id === id);
       if (removedItem) {
-        toast.success(`${removedItem.name} has been removed from your wishlist.`, {
-          position: 'bottom-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          style: {
-            backgroundColor: '#FB2E86',
-            color: '#FFFFFF',
-            borderRadius: '8px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          },
-        });
+        // toast.success(`${removedItem.name} has been removed from your wishlist.`, {
+        //   position: 'bottom-right',
+        //   autoClose: 3000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   style: {
+        //     backgroundColor: '#FB2E86',
+        //     color: '#FFFFFF',
+        //     borderRadius: '8px',
+        //     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        //   },
+        // });
       }
       return prevWishlist.filter((item) => item.id !== id);
     });
