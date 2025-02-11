@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 
     // Email content
     const mailOptions = {
-      from: "Yusra Saleem",
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "✨ Thank You for Shopping with Hekto! ✨",
       html: `
