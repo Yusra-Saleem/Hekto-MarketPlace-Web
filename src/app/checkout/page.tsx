@@ -19,7 +19,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useCart } from "../../components/ui/CartProvider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useUser } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -36,8 +36,8 @@ const formSchema = z.object({
 
 export default function CheckoutPage() {
   const { cart, subtotal, total } = useCart();
-  const { user } = useUser()
-  
+  const { user } = useUser();
+
   type Rate = {
     rate_id: string;
     service_type: string;
@@ -68,10 +68,22 @@ export default function CheckoutPage() {
     setIsLoading(true);
     try {
       const carrierIds = [
-        process.env.NEXT_PUBLIC_SHIPENGINE_FIRST_CARRIER_ID?.trim()?.replace(/['"]+/g, ""),
-        process.env.NEXT_PUBLIC_SHIPENGINE_SECOND_CARRIER_ID?.trim()?.replace(/['"]+/g, ""),
-        process.env.NEXT_PUBLIC_SHIPENGINE_THIRD_CARRIER_ID?.trim()?.replace(/['"]+/g, ""),
-        process.env.NEXT_PUBLIC_SHIPENGINE_FOURTH_CARRIER_ID?.trim()?.replace(/['"]+/g, ""),
+        process.env.NEXT_PUBLIC_SHIPENGINE_FIRST_CARRIER_ID?.trim()?.replace(
+          /['"]+/g,
+          ""
+        ),
+        process.env.NEXT_PUBLIC_SHIPENGINE_SECOND_CARRIER_ID?.trim()?.replace(
+          /['"]+/g,
+          ""
+        ),
+        process.env.NEXT_PUBLIC_SHIPENGINE_THIRD_CARRIER_ID?.trim()?.replace(
+          /['"]+/g,
+          ""
+        ),
+        process.env.NEXT_PUBLIC_SHIPENGINE_FOURTH_CARRIER_ID?.trim()?.replace(
+          /['"]+/g,
+          ""
+        ),
       ].filter(Boolean);
 
       if (carrierIds.length === 0) {
@@ -127,11 +139,16 @@ export default function CheckoutPage() {
       setRates(data.rate_response.rates);
     } catch (error) {
       console.error("Error fetching shipping rates:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to fetch shipping rates.");
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch shipping rates."
+      );
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const handleCheckout = async () => {
     if (!selectedRate) {
@@ -148,7 +165,7 @@ export default function CheckoutPage() {
       const orderData = {
         firstName: form.getValues("firstName"),
         lastName: form.getValues("lastName"),
-        userId: user?.id, // Add this line
+        userId: user?.id,
         email: user?.primaryEmailAddress?.emailAddress,
         address: form.getValues("address"),
         apartment: form.getValues("apartment"),
@@ -171,32 +188,32 @@ export default function CheckoutPage() {
           estimatedDelivery: selectedRate.estimated_delivery_date,
         },
         shippingLabel: {
-          labelId: "label_123", // Add actual label ID
-          trackingNumber: "TRKxxxxxxxx", // Add actual tracking number
-          labelUrl: "https://example.com/label/123", // Add actual label URL
-          labelPrice: 5.0, // Add actual label price
-          tax: 3.5, // Add actual tax
-          service_type: "UPS", // Add actual service type
-          info_date: new Date().toISOString(), // Add actual info date
-          shop_fit_owner: "Yusra Saleem", // Add actual shop/fit owner
-          translate: false, // Add actual translate value
-          validate_to_stress: "No", // Add actual validate to stress value
+          labelId: "label_123",
+          trackingNumber: "TRKxxxxxxxx",
+          labelUrl: "https://example.com/label/123",
+          labelPrice: 5.0,
+          tax: 3.5,
+          service_type: "UPS",
+          info_date: new Date().toISOString(),
+          shop_fit_owner: "Yusra Saleem",
+          translate: false,
+          validate_to_stress: "No",
         },
         trackingStatus: {
-          status: "Processing", // Add actual status
-          lastUpdated: new Date().toISOString(), // Add actual last updated time
-          location: "New York", // Add actual location
-          estimatedDelivery: selectedRate.estimated_delivery_date, // Add actual estimated delivery
+          status: "Processing",
+          lastUpdated: new Date().toISOString(),
+          location: "New York",
+          estimatedDelivery: selectedRate.estimated_delivery_date,
         },
         paymentDetails: {
-          paymentId: "pay_123", // Add actual payment ID
-          paymentStatus: "Pending", // Add actual payment status
-          paymentMethod: "Credit Card", // Add actual payment method
-          amountPaid: totalAmount, // Add actual amount paid
+          paymentId: "pay_123",
+          paymentStatus: "Pending",
+          paymentMethod: "Credit Card",
+          amountPaid: totalAmount,
         },
       };
   
-      console.log("Order Data to Save:", orderData); // Debugging
+      console.log("Order Data to Save:", orderData);
   
       // Save order data to Sanity
       const saveOrderResponse = await fetch("/api/order", {
@@ -220,7 +237,7 @@ export default function CheckoutPage() {
         tax: 3.5,
       };
   
-      console.log("Sending payload to Stripe API:", payload); // Debugging
+      console.log("Sending payload to Stripe API:", payload);
   
       const stripeResponse = await fetch("/api/checkout-route", {
         method: "POST",
@@ -233,8 +250,37 @@ export default function CheckoutPage() {
       }
   
       const { id } = await stripeResponse.json();
-      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+      );
       await stripe?.redirectToCheckout({ sessionId: id });
+  
+      // Send email confirmation
+      console.log("Sending email confirmation...");
+      const emailResponse = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId,
+          email: orderData.email,
+          firstName: form.getValues("firstName"),
+          lastName: form.getValues("lastName"),
+          estimatedDelivery: selectedRate.estimated_delivery_date,
+          totalAmount,
+          items: cart.map((item) => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+  
+      if (!emailResponse.ok) {
+        console.error("Failed to send email:", await emailResponse.json());
+        throw new Error("Failed to send email confirmation.");
+      }
+  
+      console.log("Email sent successfully!");
     } catch (error) {
       console.error("Checkout error:", error);
       toast.error("Failed to process checkout. Please try again.");
@@ -298,7 +344,7 @@ export default function CheckoutPage() {
                         />
                       </FormControl>
                       <FormLabel className="text-sm text-gray-600">
-                      Keep me up to date on news and excluive offers
+                        Keep me up to date on news and excluive offers
                       </FormLabel>
                     </FormItem>
                   )}
@@ -311,7 +357,6 @@ export default function CheckoutPage() {
                     <FormField
                       control={form.control}
                       name="firstName"
-                     
                       render={({ field }) => (
                         <FormItem className="border-b-[3px] border-gray-300 mb-[15px] md:mb-[30px] mt-[8px]">
                           <FormControl>
@@ -444,12 +489,16 @@ export default function CheckoutPage() {
                           key={rate.rate_id}
                           onClick={() => setSelectedRate(rate)}
                           className={`p-[3px] border rounded cursor-pointer text-center  ${
-                            selectedRate?.rate_id === rate.rate_id ? "border-green-500 border-[4px] duration-300 " : "border-gray-300"
+                            selectedRate?.rate_id === rate.rate_id
+                              ? "border-green-500 border-[4px] duration-300 "
+                              : "border-gray-300"
                           }`}
                         >
                           <p>{rate.service_type}</p>
                           <p>${rate.shipping_amount.amount}</p>
-                          <p>Estimated Delivery: {rate.estimated_delivery_date}</p>
+                          <p>
+                            Estimated Delivery: {rate.estimated_delivery_date}
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -504,7 +553,7 @@ export default function CheckoutPage() {
                   <span>${total.toFixed(2)}</span>
                 </div>
                 <p className="text-xs text-gray-500 py-2">
-                 ✅ Shipping & taxes calculated at checkout
+                  ✅ Shipping & taxes calculated at checkout
                 </p>
               </div>
             </div>

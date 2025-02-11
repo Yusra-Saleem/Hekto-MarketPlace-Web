@@ -43,6 +43,11 @@ function OrderParamsHandler({ setOrderDetails, setTrackingDetails }: OrderParams
           address: string;
           city: string;
           country: string;
+          email: string;
+          firstName: string;
+          lastName: string;
+          total: number;
+          cartItems: { id: string; name: string; price: number; quantity: number }[];
           postalCode: string;
           trackingStatus?: { status?: string; estimatedDelivery?: string };
           shippingLabel?: { trackingNumber?: string; labelUrl?: string };
@@ -66,6 +71,22 @@ function OrderParamsHandler({ setOrderDetails, setTrackingDetails }: OrderParams
           estimatedDelivery: order.trackingStatus?.estimatedDelivery || "",
           status: order.trackingStatus?.status || "",
           labelUrl: order.shippingLabel?.labelUrl || "",
+        });
+
+
+         // Send email after fetching order details
+         await fetch("/api/email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            orderId: order._id,
+            email: order.email,
+            firstName: order.firstName,
+            lastName: order.lastName,
+            estimatedDelivery: order.trackingStatus?.estimatedDelivery || "",
+            totalAmount: order.total,
+            items: order.cartItems,
+          }),
         });
 
       } catch (error) {
