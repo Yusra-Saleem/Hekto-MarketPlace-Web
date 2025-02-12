@@ -42,8 +42,21 @@ export async function POST(request: Request) {
     });
 
     // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    interface Item {
+      name: string;
+      quantity: number;
+      price: number;
+    }
+
+    interface MailOptions {
+      from: string;
+      to: string;
+      subject: string;
+      html: string;
+    }
+
+    const mailOptions: MailOptions = {
+      from: "Yusra Saleem",
       to: email,
       subject: "✨ Thank You for Shopping with Hekto! ✨",
       html: `
@@ -62,7 +75,7 @@ export async function POST(request: Request) {
             <ul style="list-style-type: none; padding: 0; margin: 0;">
               ${items
                 .map(
-                  (item: any) => 
+                  (item: Item) => 
                 {`<li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #e0e0e0;">
                   <div style="display: flex; align-items: center;">
                     <div>

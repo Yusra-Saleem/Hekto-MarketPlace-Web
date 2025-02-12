@@ -27,12 +27,35 @@ const lato = Lato({
   weight: ['300', '400', '700'], // Add the weights you need
   variable: '--font-lato', // Define a custom CSS variable
 });
-
-// Define metadata
+// Define SEO-optimized metadata
 export const metadata: Metadata = {
-  title: "Hekto - Yusra Saleem Marketplace",
-  description: "Discover amazing products on Hekto. shop for luxury Sofa Sets, Chairs , and more.",
+  title: "Hekto - Luxury Sofas, Chairs & Home Furniture Online",
+  description:
+    "Shop premium sofas and chairs at Hekto. Find stylish, comfortable, and high-quality furniture with fast shipping and exclusive discounts.",
+  keywords: [
+    "Luxury Sofas",
+    "Premium Chairs",
+    "Buy Sofas Online",
+    "Furniture Store",
+    "Affordable Sofas",
+    "Best Online Furniture Shop",
+  ],
+  openGraph: {
+    title: "Hekto - Luxury Sofas, Chairs & Home Furniture Online",
+    description:
+      "Upgrade your home with our premium collection of sofas, chairs, and décor. High-quality, stylish furniture with fast delivery.",
+    url: "https://hekto-yusrasaleem.vercel.app",
+    type: "website",
+    
+    
+  },
+  icons: {
+    icon: "/favicon.ico", 
+    
+  },
+ 
 };
+
 
 export default function RootLayout({
   children,
