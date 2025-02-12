@@ -212,7 +212,7 @@ function Header() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed right-0 top-[30px] w-[70vw] h-full bg-white z-50 px-4 py-2 duration-500 overflow-y-auto">
+        <div className="fixed right-0 top-[30px] w-[70vw] h-full bg-[#e8ddfc] z-50 px-4 py-2 duration-500 overflow-y-auto">
           <div className="flex justify-end mt-4 items-center">
             <IoClose className="h-6 w-6 cursor-pointer" onClick={toggleMenu} />
           </div>
