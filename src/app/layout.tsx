@@ -15,6 +15,8 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import Script from "next/script";
 
+
+
 // Define fonts
 const josefinSans = Josefin_Sans({
   subsets: ['latin'],
@@ -70,6 +72,7 @@ export default function RootLayout({
         src="//code.tidio.co/a4i2cabxbwvbjl4iu6v7w5moy4b7qikj.js"
         strategy="afterInteractive" // Load the script after the page becomes interactive
       />
+        
         {/* Wrap the entire app with CartProvider and WishlistProvider */}
         <CartProvider>
           <WishlistProvider>
@@ -106,6 +109,7 @@ export default function RootLayout({
             />
           </WishlistProvider>
         </CartProvider>
+        
       </body>
     </html>
     </ClerkProvider>

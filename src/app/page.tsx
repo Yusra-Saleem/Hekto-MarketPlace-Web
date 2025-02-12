@@ -1,3 +1,4 @@
+"use client"
 import Hero  from "../components/hero"
 import {FeaturedProducts } from "../components/featured-products"
 import { LatestProducts } from "../components/latest-products"
@@ -8,12 +9,17 @@ import { TopCategories } from "../components/top-categories"
 import  {NewsletterSection } from "../components/newsletter-section"
 import { Button } from "../components/ui/button"
 import { SectionHeader } from "../components/ui/section-header"
-
+import { useEffect, useState } from "react"
+import { PromoPopup } from "../components/promo-popup"
 
 export default function HomePage() {
+  
+
   return (
     <div className="min-h-screen">
       <main>
+         
+      <PromoPopup />
         <Hero />
         <FeaturedProducts />
         <LatestProducts />
