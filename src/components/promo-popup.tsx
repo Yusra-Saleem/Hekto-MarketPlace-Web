@@ -36,7 +36,7 @@ export function PromoPopup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await fetch("/api/submit-email", {
+      const response = await fetch("/api/discount-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export function PromoPopup() {
                   initial={{ scale: 1 }}
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 0.5, repeat: Number.POSITIVE_INFINITY, repeatDelay: 1 }}
-                  className="text-4xl sm:text-5xl font-extrabold text-[#FB2E86]"
+                  className="text-4xl font-heading sm:text-5xl font-extrabold text-[#FB2E86]"
                 >
                   SAVE 30%
                 </motion.div>

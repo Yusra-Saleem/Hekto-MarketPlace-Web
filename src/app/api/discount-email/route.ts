@@ -21,6 +21,7 @@ export async function POST(req: Request) {
 
       return NextResponse.json({ message: "Email submitted successfully" }, { status: 200 })
     } catch (error) {
+      console.error("Error submitting email:", error)
       return NextResponse.json({ message: "Error submitting email" }, { status: 500 })
     }
   } else {

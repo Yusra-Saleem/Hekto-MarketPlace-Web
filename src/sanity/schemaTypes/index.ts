@@ -4,8 +4,8 @@ import order from './orders'
 import Review from './Review'
 import userAddress from './userAddress'
 import discountEmailSubmission from './discountEmailSubmission'
-import promotion from './promotion'
+
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [products,order , Review , userAddress , promotion , discountEmailSubmission],
+  types: [products,order , Review , userAddress , discountEmailSubmission],
 }
