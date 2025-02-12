@@ -116,7 +116,7 @@ export async function POST(request: Request) {
             <h2 style="color: #151875; font-size: 28px; margin-bottom: 15px; font-weight: bold;">📞 Need Help?</h2>
             <p style="font-size: 18px; color: #555; line-height: 1.6;">
               If you have any questions or need assistance, feel free to contact us at 
-              <a href="mailto:support@hekto.com" style="color: #FB2E86; text-decoration: none; font-weight: bold;">yusrasaleem679@gmail.com</a> 
+              <a href="mailto:yusrasaleem679@gmail.com" style="color: #FB2E86; text-decoration: none; font-weight: bold;">yusrasaleem679@gmail.com</a> 
               or call us at <strong style="color: #151875;">+92-3102983718</strong>.
             </p>
           </div>
