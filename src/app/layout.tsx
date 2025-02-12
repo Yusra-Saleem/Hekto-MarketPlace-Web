@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "Best Online Furniture Shop",
   ],
   openGraph: {
-    title: "Hekto - Luxury Sofas, Chairs & Home Furniture Online",
+    title: "Hekto - Luxury Sofas & Chairs Online",
     description:
       "Upgrade your home with our premium collection of sofas, chairs, and décor. High-quality, stylish furniture with fast delivery.",
     url: "https://hekto-yusrasaleem.vercel.app",
