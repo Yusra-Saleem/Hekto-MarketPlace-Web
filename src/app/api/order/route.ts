@@ -6,31 +6,31 @@ const client = sanityClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
-  useCdn: false, // Set to true for production
+  useCdn: false,
 });
 
 export async function POST(request: Request) {
   try {
     const orderData = await request.json();
 
-    // Add _type field to orderData and nested objects
+   
     const dataToSave = {
-      _type: 'order', // Add _type for the order document
+      _type: 'order',
       ...orderData,
       cartItems: orderData.cartItems.map((item: any) => ({
-        _type: 'cartItem', // Add _type for each cart item
+        _type: 'cartItem',
         ...item,
       })),
       shippingRate: {
-        _type: 'shippingRate', // Add _type for shippingRate
+        _type: 'shippingRate', 
         ...orderData.shippingRate,
       },
       trackingStatus: {
-        _type: 'trackingStatus', // Add _type for trackingStatus
+        _type: 'trackingStatus',
         ...orderData.trackingStatus,
       },
       paymentDetails: {
-        _type: 'paymentDetails', // Add _type for paymentDetails
+        _type: 'paymentDetails', 
         ...orderData.paymentDetails,
       },
     };
